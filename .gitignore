@@ -1,0 +1,5 @@
+exampleis-master/
+*.synctex.gz
+*.aux
+*.log
+
