@@ -1,5 +1,7 @@
-exampleis-master/
+# ignore auto-generated LaTeX build files
 *.synctex.gz
 *.aux
 *.log
+*.bbl
+*.blg
 
