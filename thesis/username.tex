@@ -1,0 +1,231 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% use this declaration for a draft  version of your IS
+\documentclass[10pt,palatino,code,picins,kaukecopyright,openright,woolshort,dropcaps,verbatim,index,euler]{woosterthesis}
+%\documentclass[10pt,code,picins,kaukecopyright,openright,woolshort,dropcaps,verbatim,euler,index,colophon,blacklinks,twoside]{woosterthesis}
+% note that you can specify the woosterchicago option to use Chicago citation style and achemso to use the American Chemical Society citation format
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% use this declaration for the print version of your IS
+%\documentclass[12pt,code,palatino,picins,blacklinks,kaukecopyright,openright,twoside]{woosterthesis} % probably what most students would use
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% use this declaration for the PDF version of your IS
+%\documentclass[12pt,code,palatino,picins,kaukecopyright,openright,twoside]{woosterthesis}
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\input{styles/packages}
+
+\input{styles/personal}
+
+\input{styles/theorems}
+
+\setcounter{secnumdepth}{5}% controls the numbering of sections
+\setcounter{tocdepth}{6}% controls the number of levels in the Contents
+
+\title{Algorithmic Music Composition}
+\thesistype{Independent Study Thesis}
+\author{Thomas Matlak}
+\degreetoobtain{B.A.}
+\presentschool{The College of Wooster}
+\academicprogram{Departments of Computer Science and Mathematics}
+\gradyear{2018}
+\advisor{Nathan Sommer (Computer Science)}
+\secondadvisor{Nathan Fox (Mathematics)}
+%\reader{Reader}
+\copyrighted   
+%\copyrightdate{}                  
+\makeindex % comment this line if you do not have an index
+
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%  The front matter includes acknowledgments, dedications, vitas, list of tables, list of figures,
+%  copyright, abstract, title page, and contents.
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\frontmatter
+\maketitle
+\ClearShipoutPicture
+\clearpage\thispagestyle{empty}\null\clearpage
+\disscopyright 
+
+% Abstract
+
+\begin{abstract} \label{abstract}
+This is a short summary of my thesis, including very basic background information, a simplified description of my work, and an overview of the results.
+\end{abstract}
+
+% Dedications
+
+\dedication{This work is dedicated to the future generations of Wooster students.}
+
+% Acknowledgments
+
+\begin{acknowl}  
+
+\end{acknowl}
+
+% Vita
+
+\begin{vita} 
+% You talk about yourself and how you got to where you are now. There is a structured form for the Vita that can be used if you want, but I don't encourage it.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%  The list below is for a thesis that requires a more structured Vita such as a masters or Ph.D.
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\begin{datelist}
+%\item[April 6, 1970]Born-Wooster, Ohio
+%\item[August 11, 1990]Chosen to present an undergraduate paper at the 75th meeting of the MAA, Columbus, Ohio
+%\item[August 1990--August 1991]President Wooster Student Chapter of the MAA, The College of Wooster, Wooster, Ohio
+%\item[August 1991--May 1992]Secretary Wooster Student Chapter of the MAA, The College of Wooster, Wooster, Ohio
+%\item[1992]\emph{Phi Beta Kappa} (on junior standing), The College of Wooster, Wooster, Ohio
+%\item[1992]Elizabeth Sidwell Wagner Prize in Mathematics, The College of Wooster
+%\item[1992]William H. Wilson Prize in Mathematics, The College of Wooster
+%\item[May 11, 1992]B.A., Mathematics, The College of Wooster
+%\item[1997]Finalist for Graduate Teaching Award, The Ohio State University, Columbus, Ohio
+%\item[June 21-25, 1998]Participant in the AMS-IMS-SIAM Summer Research Conferences: q-Series, Combinatorics, and Computer Algebra, Mt. Holyoke, Massachusetts
+%\item[October 1998--October 1999]Graduate student representative to The Ohio State University Department of Mathematics Graduate Studies Committee, Columbus, Ohio
+%\item[January 1999]q-series seminar address, The Ohio State University, Columbus, Ohio
+%\item[2000]Finalist for Departmental Teaching Award, The Ohio State University, Columbus, Ohio
+%\item[2000]Nominated for Graduate Teaching Award, The Ohio State University, Columbus, Ohio
+%\item[April 2000]Invited colloquium talk at The College of Wooster, Wooster, Ohio
+%\item[1992-- present]Graduate Teaching and Research Associate, The Ohio State University
+%\end{datelist}
+%
+%%%This is for any publications you might have.%%%%%
+
+%\begin{publist}  
+%\pubitem{\quad}
+%\pubitem{\quad}
+%\end{publist}
+
+\begin{fieldsstudy} 
+    \majorfield{Computer Science and Mathematics}
+	\minorfield{Music}
+%    \specialization{Algorithmic Compositions}
+    %\begin{studieslist}
+   %\studyitem{Abstract Algebra}{Hampton}
+   %\end{studieslist}
+  \end{fieldsstudy}
+\end{vita}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%  We now create the contents page and if necessary the list of figures and list of tables.
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\cleardoublepage
+\phantomsection
+\addcontentsline{toc}{chapter}{Contents}
+
+\tableofcontents
+\listoffigures %Use if you have a list of figures.
+\listoftables%Use if you have a list of tables.
+\lstlistoflistings% Use if you are using the code option
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% \input{chapters/preface} % most theses do not have a preface so this should be commented
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\mainmatter
+
+% Thesis chapters, each in a separate file
+
+\input{chapters/background}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%  This section starts the back matter. The back matter includes appendices, indicies, and the
+%  bibliography
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\backmatter
+
+% \input{appendices/math}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%  This section would be used if you are not using BibTeX. Look at Kopka and Daly for how to
+%  format a bibliography manually as well as how to use BibTeX.
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\begin{thebibliography}{99}
+%\bibitem{}
+%\bibitem{}
+%\end{thebibliography}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%  We used BibTeX to generate a Bibliography. I would recommend this method. However, it is
+%  not required.
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\renewcommand\bibname{References} % changes the name of the Bibliography
+
+\nocite{*} % This command forces all the bibliography references to be printed -- not just 
+              % those that were explicitly cited in the text.  If you comment this out, the bibliography
+              % will only include cited references.
+\ifthenelse{\boolean{woosterchicago}}{
+\bibliographystyle{woosterchicago}}{\ifthenelse{\boolean{achemso}}{
+\bibliographystyle{achemso}}{\bibliographystyle{plainnat}}}
+% if you have used the woosterchicago class option then your references and citations will be in Chicago format. If you have used the achemso class option then your references and citations will be in the American Chemical Society format. If you do not specify a citation format then the default Wooster format will be used.
+\bibliography{references} % load our Bibliography file
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%                                                                Index
+%
+%  Uncomment the lines below to include an index. To get an index you must put 
+%  \index{index text} after any words that you want to appear in the index.
+%  Subentries are entered as \index{index text!subentry text}. You must also run the
+%  makeindex program to generate the index files that LaTeX uses. The PCs are set to run
+%  makeindex automatically.
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\ifthenelse{\boolean{index}}{
+%\cleardoublepage
+%\phantomsection
+%\addcontentsline{toc}{chapter}{Index}
+%\printindex}{}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%                                                                Colophon
+%
+%  A Colophon is a section of a printed document that acknowledges the designers and printers of the work.
+% The colophon also includes information about the fonts and paper used in the printing. It is not required 
+% for your IS and can be commented out.
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\ifthenelse{\boolean{colophon}}{
+%\begin{colophon}
+%This Independent Study was designed by Dr. Jon Breitenbucher.\newline
+%It was edited and set into type in Wooster, Ohio,\newline
+%using the \ifthenelse{\boolean{xetex}}{\XeTeX\ typesetting system designed by Jonathan Kew}{\LaTeX\ typesetting system designed by Leslie Lamport}\newline
+%and based on the original \TeX\ system of Donald Knuth.\newline
+%It was printed and bound by Office Services at The College of Wooster.
+%
+%The text face is Adobe Garamond Pro, designed by Robert Slimbach.\newline
+%This is the Opentype version distributed by Adobe Systems\newline
+%and purchased as part of the Adobe Type Classics for Learning.
+%
+%The paper is standard laser copier paper and not of archival quality.
+%\end{colophon}}{}
+\clearpage\thispagestyle{empty}\null\clearpage
+\end{document}
