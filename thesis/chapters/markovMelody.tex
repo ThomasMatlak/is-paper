@@ -1,0 +1,41 @@
+%!TEX root = ../username.tex
+\chapter{A Markov Model for Melody Generation} \label{melody:markov}
+
+\section{Setup of the Model}
+
+In this model, we use two Markov processes: one to determine interval changes between notes to generate pitches, and the other to generate rhythms.
+To create the interval transition matrix, the source is iterated, keeping track of the previous interval at each step, incrementing the matrix at position $a_{i,j}$ for the previous interval $i$ and the current interval $j$.
+The rhythmic transition matrix is similarly generated.
+
+Because the number of possible intervals and rhythms are theoretically infinite, we do not want to try to store a matrix capable of holding every possible transition.
+Rather, in this implementation, we use a Python dictionary.
+More specifically, we use nested \lstinline[columns=fixed]{defaultdict}s to store the matrices.
+
+An example rhythmic transition matrix is given in Figure \ref{fig:rhythmTransitionMatrix}, based on the \textit{Little Fugue in g minor} by J.S. Bach.
+
+\begin{figure}
+	\centering
+	\begin{tabular}{c | c c c c c c c c}
+		& 0.25 & 0.5 & 0.75 & 1.0 & 1.25 & 1.5 & 2.0 & 2.25\\
+		\hline
+		0.25 & 606 & 21 & 1 & 2 & 1 & 2 & 0 & 1\\
+		0.5 & 23 & 109 & 0 & 7 & 1 & 0 & 0 & 0\\
+		0.75 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0\\
+		1.0 & 1 & 6 & 0 & 3 & 0 & 3 & 2 & 0\\
+		1.25 & 2 & 0 & 0 & 0 & 0 & 0 & 0 & 0\\
+		1.5 & 0 & 5 & 0 & 0 & 0 & 0 & 0 & 0\\
+		2.0 & 0 & 0 & 0 & 2 & 0 & 0 & 0 & 0\\
+		2.25 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0
+	\end{tabular}
+	\caption{An example rhythmic transition matrix. A value of $1.0$ indicates a quarter note.}
+	\label{fig:rhythmTransitionMatrix}
+\end{figure}
+
+\section{Generation}
+
+After the transition matrices are created, the program randomly selects a rhythmic value, based on the probabilities that correspond with the previous note, and a pitch.
+The pitch value comes from the interval from the previous note.
+The interval is chosen based on the probabilities that correspond with the previous interval.
+
+The program stops generating notes when the stopping criteria are met: the generated melody is at least eight measures, the melody ends at the end of a measure, and the last note is a tonic chord tone.
+Because the generated melody could theoretically be infinite, the program terminates generation after one-hundred measures are generated without meeting the stopping criteria.
