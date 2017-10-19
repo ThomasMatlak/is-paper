@@ -1,34 +1,47 @@
 %!TEX root = ../username.tex
 \chapter{Background} \label{bg}
 
-This section contains the background information necessary to understand the project.
+This section contains the background information necessary to understand the project. % TODO make this more formal
+
+%\section{Mathematical Notation} \label{bg:mathNotation}
+% contains notation that may be unfamiliar to readers
+% this secion may not be necessary
+
+
+
+\section{Musical Terminology and Notation} \label{bg:musicTerminology}
+% Contains musical terms and notation that may be unfamiliar to most readers
+
+% tonic chord tone
 
 \section[Markov Chains]{Markov Chains} \label{bg:markov}
 
 \subsection{Definition} \label{bg:markov:definitions}
 
-A Markov Chain is a type of discrete-time stochastic process, which means a Markov Chain is a sequence of random variables $\boldsymbol{X} = \{X_{n} | n \in I\}$ for some index set $I$.
-Additionally, Markov Chains have the special property that they depend only on the immediate past state(s).
-That is, for a first-order Markov Chain at time $n$, $$P(X_{n} = j \mid X_{0} = i_{0}, \ldots, X_{n - 1} = i_{i - 1}) = P(X_{n} = j \mid X_{n - 1} = i_{n - 1})$$ for a particular possible outcome $j$ of $X_{n}$ \cite{nierhaus_algorithmic_2009}.
+A Markov chain is a type of discrete-time stochastic process, which means a Markov chain is a sequence of random variables $\boldsymbol{X} = \{X_{n} | n \in I\}$ for some index set $I$.
+Additionally, Markov chains have the special property that they depend only on the immediate past state(s).
+That is, for a first-order Markov chain at time $n$, $$P(X_{n} = j \mid X_{0} = i_{0}, \ldots, X_{n - 1} = i_{i - 1}) = P(X_{n} = j \mid X_{n - 1} = i_{n - 1})$$ for a particular possible outcome $j$ of $X_{n}$ \cite{nierhaus_algorithmic_2009}.
 
-This idea can also extend to higher-order Markov Chains.
+This idea can also extend to higher-order Markov chains.
 A higher-order Markov process considers more than the single most recent state to determine the next state.
-An $n$th order Markov Chain uses the previous $n$ states as the input to find the next state.
+An $n$th order Markov chain uses the previous $n$ states as the input to find the next state.
 
 \subsection{Representations} \label{bg:markov:representations}
 
-We can think of a Markov Chain as a directed graph, where each state is a node, each edge is a transition between states, and the probabilities of transitioning between states are represented by the edge weights.
+We can think of a Markov chain as a directed graph, where each state is a node, each edge is a transition between states, and the probabilities of transitioning between states are represented by the edge weights.
 See Figure \ref{fig:markovGraph} for a visual representation of this idea.
 
 \begin{figure}[h]
 	\centering
 	\includegraphics[]{figures/markovGraph.png} % TODO: Make a better diagram
-	\caption{A Markov Chain represented as a graph.}
+	\caption{A Markov chain represented as a graph.}
 	\label{fig:markovGraph}
 \end{figure}
 
-When implementing a Markov Chain, however, it is perhaps easier to represent a is as an $(n + 1)$ dimensional array, where $n$ is the order of the Markov Chain.
-See Figure \ref{fig:markovMatrix} for an example of the same Markov Chain as in Figure \ref{fig:markovGraph} in matrix form.
+When implementing a Markov chain, however, it is perhaps easier to represent it as an $(n + 1)$-dimensional array, where $n$ is the order of the Markov chain.
+We call this $(n + 1)$-dimensional array the transition matrix.
+It contains the probabilities of transitioning from one state to another.
+See Figure \ref{fig:markovMatrix} for an example of the same Markov chain as in Figure \ref{fig:markovGraph} in matrix form.
 
 \begin{figure}[h]
 	\centering
@@ -39,14 +52,15 @@ See Figure \ref{fig:markovMatrix} for an example of the same Markov Chain as in 
 		$B_{0}$ & $0.6$ & $0.2$ & $0.2$\\
 		$C_{0}$ & $0.4$ & $0.1$ & $0.5$
 	\end{tabular}
-	\caption{A Markov Chain represented as a transition matrix.}
+	\caption{A Markov chain represented as a transition matrix.}
 	\label{fig:markovMatrix}
 \end{figure}
 
 \subsection{Limitations} \label{bg:markov:limitations}
 
-A major limitation of Markov Chains is their inability to generate truly novel output.
-In order for some state to appear, a transition to that state from the previous state must appear in the source.
-Additionally, lower-order chains may produce nonsensical output, while a chain of sufficiently high order will exactly copy the source.
-Another limitation is that the process may get stuck in a local loop.
+A major limitation of Markov chains is their inability to generate truly novel output.
+In order for some state to appear, a transition to that state from the previous state must appear in the source material.
+That is, no truly novel transitions may appear; all transitions that appear in the output of the Markov chain must have appeared somewhere before.
+Additionally, lower-order chains may produce nonsensical output, whereas a chain of sufficiently high order will exactly copy the source material.
+Another limitation is that the process may get stuck in a ``local loop''.
 This may happen when the chain proceeds to a state which only transitions to itself, or transitions to a set of states that only transition to each other.

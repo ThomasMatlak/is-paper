@@ -6,12 +6,14 @@
 In this model, we use two Markov processes: one to determine interval changes between notes to generate pitches, and the other to generate rhythms.
 To create the interval transition matrix, the source is iterated, keeping track of the previous interval at each step, incrementing the matrix at position $a_{i,j}$ for the previous interval $i$ and the current interval $j$.
 The rhythmic transition matrix is similarly generated.
+While the source is iterated to generate the interval transition matrix, we can also build the rhythmic transition matrix.
+To do this we keep track of the duration of the previous rhythm at each step and increment the transition matrix at position $b_{k,l}$ for the previous rhythmic duration $k$ and current rhythmic duration $l$.
 
 Because the number of possible intervals and rhythms are theoretically infinite, we do not want to try to store a matrix capable of holding every possible transition.
 Rather, in this implementation, we use a Python dictionary.
-More specifically, we use nested \lstinline[columns=fixed]{defaultdict}s to store the matrices.
+More specifically, we use nested \texttt{defaultdict}s to store the matrices.
 
-An example rhythmic transition matrix is given in Figure \ref{fig:rhythmTransitionMatrix}, based on the \textit{Little Fugue in g minor} by J.S. Bach.
+An example rhythmic transition matrix is given in Figure \ref{fig:rhythmTransitionMatrix}, based on the \textit{Little Fugue in G Minor} by J.S. Bach.
 
 \begin{figure}
 	\centering
@@ -38,4 +40,4 @@ The pitch value comes from the interval from the previous note.
 The interval is chosen based on the probabilities that correspond with the previous interval.
 
 The program stops generating notes when the stopping criteria are met: the generated melody is at least eight measures, the melody ends at the end of a measure, and the last note is a tonic chord tone.
-Because the generated melody could theoretically be infinite, the program terminates generation after one-hundred measures are generated without meeting the stopping criteria.
+Because the generated melody could theoretically be infinite, the program terminates generation after one-hundred measures are generated whether or not the stopping criteria are met.
