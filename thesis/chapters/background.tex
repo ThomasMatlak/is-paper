@@ -10,7 +10,7 @@ This section contains the background information necessary to understand the pro
 
 
 \section{Musical Terminology and Notation} \label{bg:musicTerminology}
-% Contains musical terms and notation that may be unfamiliar to most readers
+% Musical terms and notation that may be unfamiliar to most readers
 
 % tonic chord tone
 
@@ -33,7 +33,7 @@ See Figure \ref{fig:markovGraph} for a visual representation of this idea.
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[]{figures/markovGraph.png} % TODO: Make a better diagram
+	\includegraphics[width=\linewidth]{figures/markovGraph.png} % TODO: Make a better diagram
 	\caption{A Markov chain represented as a graph.}
 	\label{fig:markovGraph}
 \end{figure}
@@ -64,3 +64,21 @@ That is, no truly novel transitions may appear; all transitions that appear in t
 Additionally, lower-order chains may produce nonsensical output, whereas a chain of sufficiently high order will exactly copy the source material.
 Another limitation is that the process may get stuck in a ``local loop''.
 This may happen when the chain proceeds to a state which only transitions to itself, or transitions to a set of states that only transition to each other.
+
+%\section{Neural Networks} \label{bg:nn}
+% maybe? would give brief crash course of NNs
+
+
+\section{Genetic Algorithms} \label{bg:ga}
+% a beief crach course on GAs
+%\subsection{Definition}
+
+In general, a genetic algorithm takes an initial population and produces a new set of individuals to become the initial population of the next generation.
+This new set is produced by performing various operations on the initial population, then using a fitness function to choose the best performing individuals.
+Common operation on the initial population include combining individuals in different ways, similar to how genetic information from two parents is combined into a child, and introducing mutations. % TODO go more in-depth here
+That is, making small random changes to individuals in the population.
+
+To choose the new initial population, a fitness function is defined which measures how close an individual is to the desired output.
+If some individuals reach a certain level fitness, they are the output of the genetic algorithm.
+Otherwise, the best performing individuals become the initial population of the next generation.
+This process continues until some individuals perform well enough.
