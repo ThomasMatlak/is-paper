@@ -1,0 +1,40 @@
+%!TEX root = ../username.tex
+\chapter{The Software} \label{software}
+
+% TODO give more details
+
+This chapter discusses the various components of the software used in this project.
+
+All components use \texttt{music21}, a Python library for music developed by MIT, to handle input and output of music notation to and from a Python-native format.
+
+\section{Markov Melody Generator}
+
+In the code repository for this project, the directory \texttt{intervalMarkovChain} contains Python code to generate melodies using Markov chains of arbitrary order.
+The theory behind this software component is discussed in section \ref{bg:markov} and Chapter \ref{markov}.
+The software uses two Markov chains, one for the intervals between notes, and the other for rhythms.
+
+The file \texttt{intervalMarkovChain/markovChain.py} contains a class to create these Markov chains.
+An $n$th order Markov chain is represented using \texttt{defaultdict}s nested $n + 1$ deep.
+
+The file \texttt{intervalMarkovChain/intervalMarkovChain.py} contains code to read a corpus of music, generate the Markov chains using the \texttt{MarkovChain} class, and create a new melody with them.
+
+\section{Genetic Algorithms}
+
+The directory \texttt{geneticAlgorithms} contains Python code to manipulate existing melodies with genetic algorithms to produce better output.
+The theory behind this software component is in section \ref{bg:ga} and Chapter \ref{ga}.
+
+\subsection{Fitness Function}
+
+This program uses a neural network created using TensorFlow as a surrogate fitness.
+The file \texttt{geneticAlgorithms/fitnessFunctionTraining.py} contains code to train the neural network and save it for later use, as well as example code for how to run a specific melody segment through the neural network to determine its fitness.
+
+\subsection{Mutations}
+
+The file \texttt{geneticAlgorithms/genetic.py} contains functions to perform mutation on \texttt{music21} streams.
+Section \ref{ga:mutate} contains the theoretical background of these mutations.
+
+\subsection{Evolving Melodies}
+
+
+
+\section{Harmonization and Counterpoint}
