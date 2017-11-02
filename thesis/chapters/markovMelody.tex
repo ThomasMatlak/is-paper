@@ -1,7 +1,7 @@
 %!TEX root = ../username.tex
-\chapter{A Markov Model for Melody Generation} \label{melody:markov}
+\chapter{A Markov Model for Melody Generation} \label{markov}
 
-\section{Setup of the Model}
+\section{Setup of the Model} \label{markov:setup}
 
 In this model, we use two Markov processes: one to determine interval changes between notes to generate pitches, and the other to generate rhythms.
 To create the interval transition matrix, the source is iterated, keeping track of the previous interval at each step, incrementing the matrix at position $a_{i,j}$ for the previous interval $i$ and the current interval $j$.
@@ -33,7 +33,7 @@ An example rhythmic transition matrix is given in Figure \ref{fig:rhythmTransiti
 	\label{fig:rhythmTransitionMatrix}
 \end{figure}
 
-\section{Generation}
+\section{Generation} \label{markov:generation}
 
 After the transition matrices are created, the program randomly selects a rhythmic value, based on the probabilities that correspond with the previous note, and a pitch.
 The pitch value comes from the interval from the previous note.
