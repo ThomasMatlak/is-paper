@@ -16,9 +16,12 @@ This section contains the background information necessary to understand the pro
 
 \section[Markov Chains]{Markov Chains} \label{bg:markov}
 
+Intuitively, we may think of a Markov chain as a machine that accepts some former state or states of a system and produces the next state in the system.
+The decision of what the next state should be is based on probabilities of transitioning to different states from the current state of the system.
+
 \subsection{Definition} \label{bg:markov:definitions}
 
-A Markov chain is a type of discrete-time stochastic process, which means a Markov chain is a sequence of random variables $\boldsymbol{X} = \{X_{n} | n \in I\}$ for some index set $I$.
+More formally, a Markov chain is a type of discrete-time stochastic process, which means a Markov chain is a sequence of random variables $\boldsymbol{X} = \{X_{n} | n \in I\}$ for some index set $I$.
 Additionally, Markov chains have the special property that they depend only on the immediate past state(s).
 That is, for a first-order Markov chain at time $n$, $$P(X_{n} = j \mid X_{0} = i_{0}, \ldots, X_{n - 1} = i_{i - 1}) = P(X_{n} = j \mid X_{n - 1} = i_{n - 1})$$ for a particular possible outcome $j$ of $X_{n}$ \cite{nierhaus_algorithmic_2009}.
 
@@ -34,7 +37,7 @@ See Figure \ref{fig:markovGraph} for a visual representation of this idea.
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=\linewidth]{figures/markovGraph.png} % TODO: Make a better diagram
-	\caption{A Markov chain represented as a graph.}
+	\caption[A Markov chain represented as a graph.]{A Markov chain represented as a graph. Arrows between nodes represent transitions between nodes.}
 	\label{fig:markovGraph}
 \end{figure}
 
@@ -52,7 +55,7 @@ See Figure \ref{fig:markovMatrix} for an example of the same Markov chain as in 
 		$B_{0}$ & $0.6$ & $0.2$ & $0.2$\\
 		$C_{0}$ & $0.4$ & $0.1$ & $0.5$
 	\end{tabular}
-	\caption{A Markov chain represented as a transition matrix.}
+	\caption[A Markov chain represented as a transition matrix.]{A Markov chain represented as a transition matrix. Rows represent transitions from the labeling node to the labeling node of each column.}
 	\label{fig:markovMatrix}
 \end{figure}
 

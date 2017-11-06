@@ -21,7 +21,7 @@ Some authors discuss some techniques for fitness functions as applied to music.
 In this project we use an artificial neural network as the surrogate model.
 We expect the neural network to pick up on which rules are the most important, altering its weights accordingly.
 For this project, we consider eight measures at a time as the input for the neural network.
-In out corpus of music, the sixteenth note is most commonly the smallest rhythmic value in a piece of music, so we use $16 * 8 = 128$ input nodes.
+In our corpus of music, the sixteenth note is most commonly the smallest rhythmic value in a piece of music, so we use $16 * 8 = 128$ input nodes.
 Somewhat arbitrarily, we initially use $100$ nodes in a hidden layer.
 Through trial and error, the optimal number of hidden layers is $X$ with $Y$ nodes in each hidden layer. % TODO update these to real values
 One output node with a value between zero and one gives the neural network's certainty that the provided input is proper, rule following music.
