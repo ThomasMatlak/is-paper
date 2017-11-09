@@ -17,6 +17,27 @@ We could go on, and eventually the frequencies would pass out of the human heari
 The presence of the overtone series, and in particular the harmonic series is what makes a sound pitched.
 Percussive sounds such as hitting a drum or dropping a brick do produce pressure in the air, but the oscillations of the pressure are not regular, and so do not produce any pitched frequencies.
 
+\begin{figure}
+	\centering
+	\includegraphics[width=\textwidth]{../figures/sinWave.png}
+	\caption{A pure sin wave}
+	\label{fig:sin}
+\end{figure}
+
+\begin{figure}
+	\centering
+	\includegraphics[width=\textwidth]{../figures/harmonicSinWaves.png}
+	\caption{The first five harmonic frequencies of a sin wave.}
+	\label{fig:harmonics}
+\end{figure}
+
+\begin{figure}
+	\centering
+	\includegraphics[width=\textwidth]{../figures/summedSinWaves.png}
+	\caption{The sum of the first five harmonic sin waves.}
+	\label{fig:summedHarmonics}
+\end{figure}
+
 Brass instruments are built with the harmonic series in mind.
 For example, the tenor trombone has a fundamental pitch of a B$\flat$1, or $58.87$ Hz.
 The pitches that can be played on the instrument in first position (i.e. without moving the slide, which would change the fundamental frequency) are those of the harmonic series based on B$\flat$1.
@@ -60,7 +81,11 @@ Table \ref{table:justintervals} contains the rational ratios for intervals throu
 	\label{table:justintervals}
 \end{table}
 
-The just tuning system produces the best sounding intervals and is used to tune intervals by ear, but it does not lend itself well to an interval played as a series of semitones up to have the same frequency as the interval of a equivalent number of semitones.
+The just tuning system produces the best sounding intervals and is used to tune intervals by ear.
+The downside is that the size of an interval is different than the sum of semi tones to reach the same interval.
+For example, the frequency of major third above a given note is $\frac{6}{5}$ that of the given note.
+Building that same interval (4 semi tones) by moving up the chromatic scale, however, the ratio is $(\frac{16}{15})^{4} = \frac{65536}{50625} \approx \frac{6.5}{5}$.
+This is a significant difference from the ratio for a major third.
 
 \subsection{Equal Temperament} \label{mathinmusic:intervals:equal}
 
