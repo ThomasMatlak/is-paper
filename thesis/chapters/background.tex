@@ -76,10 +76,11 @@ This may happen when the chain proceeds to a state which only transitions to its
 % a beief crach course on GAs
 %\subsection{Definition}
 
-In general, a genetic algorithm takes an initial population and produces a new set of individuals to become the initial population of the next generation.
+In general, a genetic algorithm (GA) takes an initial population and produces a new set of individuals to become the initial population of the next generation.
 This new set is produced by performing various operations on the initial population, then using a fitness function to choose the best performing individuals.
-Common operation on the initial population include combining individuals in different ways, similar to how genetic information from two parents is combined into a child, and introducing mutations. % TODO go more in-depth here
-That is, making small random changes to individuals in the population.
+An essential operation for GAs is mating the initial population, that is, splicing the initial individuals together to produce new sequences.
+After creating the new population, we introduce mutations to keep the population from stagnating.
+These mutations can include random changes or more intentional operations to improve the fitness of the individual.
 
 To choose the new initial population, a fitness function is defined which measures how close an individual is to the desired output.
 If some individuals reach a certain level fitness, they are the output of the genetic algorithm.
