@@ -6,31 +6,55 @@
 This chapter discusses the various components of the software used in this project.
 
 All components use \texttt{music21}, a Python library for music developed by MIT, to handle input and output of music notation to and from a Python-native format.
+Input files are in MIDI format.
+
+\section{Overview}
+
+The data flow for the set of programs used in this project are as follows:
+The Markov chain program reads a corpus of music to create its transition matrices.
+These Markov chains are then used to produce the initial population for the genetic algorithm.
+The genetic algorithm uses a long short term memory artificial neural network as a surrogate fitness function, which was trained with its own music corpus.
+The final output from the genetic algorithm then is sent to the harmonization program, which creates other musical voices to accompany the generated melody.
+
+% TODO add diagram of data flow
 
 \section{Markov Melody Generator}
 
 In the code repository for this project, the directory \texttt{intervalMarkovChain} contains Python code to generate melodies using Markov chains of arbitrary order.
-The theory behind this software component is discussed in section \ref{bg:markov} and Chapter \ref{markov}.
+The theory behind this software component is discussed in Section \ref{bg:markov} and Chapter \ref{markov}.
 The software uses two Markov chains, one for the intervals between notes, and the other for rhythms.
 
 The file \texttt{intervalMarkovChain/markovChain.py} contains a class to create these Markov chains.
 An $n$th order Markov chain is represented using \texttt{defaultdict}s nested $n + 1$ deep.
+Two interesting functions in this class are \texttt{arbitrary\_depth\_dict\_get} and \texttt{arbitrary\_depth\_dict\_set}.
+These functions allow one to read from and write to \texttt{dict}s of arbitrary depth.
+These are necessary to be able to create and use the transition matrices because the order of the Markov chain may not always be the same, so the number of index operators desired cannot be hard-coded.
+
+\texttt{arbitrary\_depth\_dict\_get(subscripts, default, nested\_dict)} works by recursively accessing \texttt{nested\_dict} with the first element of \texttt{subscripts} until either \texttt{subscripts} is empty or a key from \texttt{subscripts} does not exist.
+In the former case, the function returns the value of \texttt{nested\_dict} specified by \texttt{subscripts}.
+In the latter case, the function returns the specified default value.
+
+\texttt{arbitrary\_depth\_dict\_set(subscripts, \_dict, val)} works by iterating through the \texttt{subscripts} of \texttt{\_dict}, going a level deeper at each step.
+At each level, an empty dictionary is created if one did not already exist at that index.
+This function makes use of the fact that the \texttt{dict} data structure in Python can be assigned to a new variable by reference in order to go into the next index.
+On the final index, the dictionary is assigned the value at the (possibly nested) index as specified by \texttt{subscripts}.
 
 The file \texttt{intervalMarkovChain/intervalMarkovChain.py} contains code to read a corpus of music, generate the Markov chains using the \texttt{MarkovChain} class, and create a new melody with them.
 
 \section{Genetic Algorithms}
 
 The directory \texttt{geneticAlgorithms} contains Python code to manipulate existing melodies with genetic algorithms to produce better output.
-The theory behind this software component is in section \ref{bg:ga} and Chapter \ref{ga}.
+The theory behind this software component is in Section \ref{bg:ga} and Chapter \ref{ga}.
 
 \subsection{Fitness Function}
 
-This program uses a neural network created using TensorFlow as a surrogate fitness.
+This program uses a neural network created using TensorFlow as a surrogate fitness function.
+TensorFlow is a machine learning library for Python developed by the Google Brain Team.
 The file \texttt{geneticAlgorithms/fitnessFunctionTraining.py} contains code to train the neural network and save it for later use, as well as example code for how to run a specific melody segment through the neural network to determine its fitness.
 
 \subsection{Mutations}
 
-The file \texttt{geneticAlgorithms/genetic.py} contains functions to perform mutation on \texttt{music21} streams.
+The file \texttt{geneticAlgorithms/genetic.py} contains functions to perform mutations on \texttt{music21} streams.
 Section \ref{ga:mutate} contains the theoretical background of these mutations.
 
 \subsection{Evolving Melodies}
@@ -38,3 +62,25 @@ Section \ref{ga:mutate} contains the theoretical background of these mutations.
 
 
 \section{Harmonization and Counterpoint}
+
+
+\section{How to Use the Software}
+
+\subsection{Markov Melody}
+
+To produce a melody using the Markov Melody program, call the program \texttt{intervalMarkovChain.py} along with the corpus of music to use, either directly as the MIDI files to use, or as a directory containing MIDI files.
+From the command line, this might look like
+
+\texttt{python3 intervalMarkovChain.py song1.mid song2.mid}
+
+\noindent when directly specifying the MIDI files to use, or
+
+\texttt{python3 intervalMarkovChain.py corpusDir/}
+
+\noindent to provide a directory of MIDI files.
+
+
+
+\subsection{Genetic Melody}
+
+Run \texttt{python3 geneticAlgormithm.py} to generate a set of melodies with the initial population produced by Markov chains and the final population produced by the genetic algorithm.
