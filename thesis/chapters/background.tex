@@ -21,9 +21,9 @@ The decision of what the next state should be is based on probabilities of trans
 
 \subsection{Definition} \label{bg:markov:definitions}
 
-More formally, a Markov chain is a type of discrete-time stochastic process, which means a Markov chain is a sequence of random variables $\boldsymbol{X} = \{X_{n} | n \in I\}$ for some index set $I$.
+More formally, a \textit{Markov chain} is a type of discrete-time stochastic process, which means a Markov chain is a sequence of random variables $\boldsymbol{X} = \{X_{n} | n \in I\}$ for some index set $I$.
 Additionally, Markov chains have the special property that they depend only on the immediate past state(s).
-That is, for a first-order Markov chain at time $n$, $$P(X_{n} = j \mid X_{0} = i_{0}, \ldots, X_{n - 1} = i_{i - 1}) = P(X_{n} = j \mid X_{n - 1} = i_{n - 1})$$ for a particular possible outcome $j$ of $X_{n}$ \cite{nierhaus_algorithmic_2009}.
+That is, for a first-order Markov chain at time $t$, $$P(X_{t} = j \mid X_{0} = i_{0}, \ldots, X_{t - 1} = i_{i - 1}) = P(X_{t} = j \mid X_{t - 1} = i_{t - 1})$$ for a particular possible outcome $j$ of $X_{t}$ \cite{nierhaus_algorithmic_2009}.
 
 This idea can also extend to higher-order Markov chains.
 A higher-order Markov process considers more than the single most recent state to determine the next state.
@@ -31,7 +31,7 @@ An $n$th order Markov chain uses the previous $n$ states as the input to find th
 
 \subsection{Representations} \label{bg:markov:representations}
 
-We can think of a Markov chain as a directed graph, where each state is a node, each edge is a transition between states, and the probabilities of transitioning between states are represented by the edge weights.
+In the case when $n = 1$, we can think of a Markov chain as a directed graph, where each state is a node, each edge is a transition between states, and the probabilities of transitioning between states are represented by the edge weights.
 See Figure \ref{fig:markovGraph} for a visual representation of this idea.
 
 \begin{figure}[h]
@@ -41,8 +41,8 @@ See Figure \ref{fig:markovGraph} for a visual representation of this idea.
 	\label{fig:markovGraph}
 \end{figure}
 
-When implementing a Markov chain, however, it is perhaps easier to represent it as an $(n + 1)$-dimensional array, where $n$ is the order of the Markov chain.
-We call this $(n + 1)$-dimensional array the transition matrix.
+When implementing a Markov chain in code, however, it is perhaps easier to represent it as an $(n + 1)$-dimensional array, where $n$ is the order of the Markov chain.
+We call this $(n + 1)$-dimensional array the \textit{transition matrix}.
 It contains the probabilities of transitioning from one state to another.
 See Figure \ref{fig:markovMatrix} for an example of the same Markov chain as in Figure \ref{fig:markovGraph} in matrix form.
 
@@ -63,10 +63,13 @@ See Figure \ref{fig:markovMatrix} for an example of the same Markov chain as in 
 
 A major limitation of Markov chains is their inability to generate truly novel output.
 In order for some state to appear, a transition to that state from the previous state must appear in the source material.
+% TODO define source material
 That is, no truly novel transitions may appear; all transitions that appear in the output of the Markov chain must have appeared somewhere before.
 Additionally, lower-order chains may produce nonsensical output, whereas a chain of sufficiently high order will exactly copy the source material.
 Another limitation is that the process may get stuck in a ``local loop''.
-This may happen when the chain proceeds to a state which only transitions to itself, or transitions to a set of states that only transition to each other.
+This may happen when the chain proceeds to a state which only transitions to itself or transitions to a set of states that only transition to each other.
+
+See Chapter \ref{markov} for more information on how Markov chains are used in this project.
 
 %\section{Neural Networks} \label{bg:nn}
 % maybe? would give brief crash course of NNs
@@ -76,8 +79,9 @@ This may happen when the chain proceeds to a state which only transitions to its
 % a beief crach course on GAs
 %\subsection{Definition}
 
-In general, a genetic algorithm (GA) takes an initial population and produces a new set of individuals to become the initial population of the next generation.
+In general, a \textit{genetic algorithm (GA)} is an iterative process that takes an initial population of individuals and produces a new set of individuals to become the initial population of the next generation.
 This new set is produced by performing various operations on the initial population, then using a fitness function to choose the best performing individuals.
+% TODO define initial population, sequences
 An essential operation for GAs is mating the initial population, that is, splicing the initial individuals together to produce new sequences.
 After creating the new population, we introduce mutations to keep the population from stagnating.
 These mutations can include random changes or more intentional operations to improve the fitness of the individual.
@@ -86,3 +90,7 @@ To choose the new initial population, a fitness function is defined which measur
 If some individuals reach a certain level fitness, they are the output of the genetic algorithm.
 Otherwise, the best performing individuals become the initial population of the next generation.
 This process continues until some individuals perform well enough.
+
+See Chapter \ref{ga} for more information on how genetic algorithms are used in this project.
+
+% TODO give a simple example here
