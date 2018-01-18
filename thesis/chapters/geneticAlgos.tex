@@ -9,21 +9,41 @@ In several previous papers, the authors discuss the use of interactive fitness f
 With this method, a human listens to the melodies and selects the best from each generation to be used as the parents of the next generation.
 This method does well at picking the most pleasing music to human ears, but it requires humans to listen to the music, which is slow and can lead to fatigue on the part of the evaluators.
 
-Rather than rely on humans who may become tired or slightly vary their definition of good music, we want to use an automated fitness function.
+Rather than rely on humans who may become tired, or may slightly vary their definition of good music, we want to use an automated fitness function.
 Music from the common practice period of Western music, which lasted from the late Baroque period through the Romantic period (1650-1900), generally followed a complex set of rules regarding harmony, rhythm, and duration.
 We could manually define a function that uses some weighted average of each of the many rules, but this approach could be highly error prone and require lots of manual tweaking.
 
-Rather, it is good enough to approximate a fitness function using what we call a \textit{surrogate model}. % cite a paper on this
-Some authors discuss some techniques for fitness functions as applied to music \cite{papadopoulos_ai_1999, de_freitas_originality_2011, alfonseca_fitness_2006}.
-For example, de Freitas and Guimaraes use a fitness function that penalizes any note outside of the C Major scale, while Papadopoulos and Wiggins use a fitness function that considers several characteristics of the melody, including consecutive intervals, note durations, and contour.
+Rather, it is often good enough to approximate a fitness function using what we call a \textit{surrogate model}. % cite a paper on this
+Some authors discuss techniques for fitness functions as applied to music \cite{papadopoulos_ai_1999, de_freitas_originality_2011, alfonseca_fitness_2006}.
+For example, Alan de Freitas and Frederico Guimaraes use a fitness function that penalizes any note outside of the C Major scale, while George Papadopoulos and Geraint Wiggins use a fitness function that considers several characteristics of the melody, including consecutive intervals, note durations, and contour.
+% TODO write about accuracy results from these authors
 In this project we use an artificial neural network as the surrogate model.
 We expect the neural network to pick up on which rules are the most important, altering its weights accordingly.
-For this project, we consider eight measures at a time as the input for the neural network.
-In our corpus of music, the sixteenth note is most commonly the smallest rhythmic value in a piece of music, so we use $16 * 8 = 128$ input nodes.
-Somewhat arbitrarily, we initially use $100$ nodes in a hidden layer.
-Through trial and error, the optimal number of hidden layers is $X$ with $Y$ nodes in each hidden layer. % TODO update these to real values
-One output node with a value between zero and one gives the neural network's certainty that the provided input is proper, rule following music.
-In addition to the samples of ``correct'' music from the corpus, the neural network was also fed completely randomly generated music as examples of ``bad'' music during training.
+Because music has temporal properties, the type of neural network used in this project is a \textit{long short-term memory} (LSTM) network.
+An LSTM network is a special type of \textit{recurrent neural network}, where nodes link back to themselves. % TODO write about LSTM networks here
+
+The classification we use is binary: is the chunk of music run through the network similar to the chunks of music used to train the network?
+We expect the network might pick up on attributes such as how long a note lasts, what the pitch of a note is, and its relation to the notes around it.
+However, we cannot know for certain that the network decides is important before training.
+
+In our corpus of music, the sixteenth note is most commonly the smallest rhythmic value in a piece of music, so we first preprocess the music data by converting all rhythms to consecutive sixteenth notes.
+The motivation for this method, rather than trying to encode the rhythm in another way comes from Peter Todd \cite{todd_connectionist_1989}.
+We perform additional preprocessing by \textit{one-hot encoding} the pitch class of each note.
+This means that each of the twelve pitch classes can be represented as an array of eleven $0$s and one $1$.
+For example, C encodes to $[1 \; 0 \; 0 \; 0 \; 0 \; 0 \; 0 \; 0 \; 0 \; 0 \; 0 \; 0]$ and C$\sharp$ encodes to $[0 \; 1 \; 0 \; 0 \; 0 \; 0 \; 0 \; 0 \; 0 \; 0 \; 0 \; 0]$.
+
+Unlike a traditional neural network, an input sample is not entered all at once.
+Instead, each note enters the network one at a time.
+For this project, we consider four measures of music as input to the neural network.
+With our rhythmic encoding of sixteenth notes, this means for each music sample we input $16 * 4 = 64$ notes to the network.
+In more general terminology, each note is a \textit{chunk}.
+Since each note consists of a single one-hot encoded pitch class, the \textit{chunk size} is $12$.
+Somewhat arbitrarily, we use pass the input through $128$ nodes.
+The output of the network is a one-hot encode array of two values: is the music sample good enough or not.
+
+During training, in addition to samples of correct music from out corpus, we also feed the network samples of random noise as incorrect examples.
+
+Using this network setup, we were able to achieve up to $93\%$ accuracy when classifying samples from our corpus.
 
 \section{Mutations} \label{ga:mutate}
 
