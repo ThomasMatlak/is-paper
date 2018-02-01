@@ -9,9 +9,9 @@ In several previous papers, the authors discuss the use of interactive fitness f
 With this method, a human listens to the melodies and selects the best from each generation to be used as the parents of the next generation.
 This method does well at picking the most pleasing music to human ears, but it requires humans to listen to the music, which is slow and can lead to fatigue on the part of the evaluators.
 
-Rather than rely on humans who may become tired, or may slightly vary their definition of good music, we want to use an automated fitness function.
+Rather than rely on humans who may become tired, or may vary their definition of good music over time, we want to use an automated fitness function.
 Music from the common practice period of Western music, which lasted from the late Baroque period through the Romantic period (1650-1900), generally followed a complex set of rules regarding harmony, rhythm, and duration.
-We could manually define a function that uses some weighted average of each of the many rules, but this approach could be highly error prone and require lots of manual tweaking.
+We could manually define a function that applies some penalty for breaking a rule, but this approach could be highly error prone and require lots of manual tweaking.
 
 Rather, it is often good enough to approximate a fitness function using what we call a \textit{surrogate model}. % cite a paper on this
 Some authors discuss techniques for fitness functions as applied to music \cite{papadopoulos_ai_1999, de_freitas_originality_2011, alfonseca_fitness_2006}.
@@ -28,22 +28,22 @@ However, we cannot know for certain that the network decides is important before
 
 In our corpus of music, the sixteenth note is most commonly the smallest rhythmic value in a piece of music, so we first preprocess the music data by converting all rhythms to consecutive sixteenth notes.
 The motivation for this method, rather than trying to encode the rhythm in another way comes from Peter Todd \cite{todd_connectionist_1989}.
-We perform additional preprocessing by \textit{one-hot encoding} the pitch class of each note.
-This means that each of the twelve pitch classes can be represented as an array of eleven $0$s and one $1$.
-For example, C encodes to $[1 \; 0 \; 0 \; 0 \; 0 \; 0 \; 0 \; 0 \; 0 \; 0 \; 0 \; 0]$ and C$\sharp$ encodes to $[0 \; 1 \; 0 \; 0 \; 0 \; 0 \; 0 \; 0 \; 0 \; 0 \; 0 \; 0]$.
+We perform additional preprocessing by \textit{one-hot encoding} the pitch of each note.
+To limit the range of octaves that can appear in our music, we use the MIDI values for each pitch.
+Because standard MIDI values range from $0$ to $127$, we can one-hot encode the pitch as an array of zeros with a $1$ at the index of the MIDI number we want to represent.
 
 Unlike a traditional neural network, an input sample is not entered all at once.
 Instead, each note enters the network one at a time.
 For this project, we consider four measures of music as input to the neural network.
 With our rhythmic encoding of sixteenth notes, this means for each music sample we input $16 * 4 = 64$ notes to the network.
 In more general terminology, each note is a \textit{chunk}.
-Since each note consists of a single one-hot encoded pitch class, the \textit{chunk size} is $12$.
-Somewhat arbitrarily, we use pass the input through $128$ nodes.
-The output of the network is a one-hot encode array of two values: is the music sample good enough or not.
+Since each note consists of a single one-hot encoded pitch, the \textit{chunk size} is $128$.
+Somewhat arbitrarily, we pass each input through $128$ neurons in the network.
+The output of the network is a an array containing two value, which are the network's certainty that the input is or is not a good melody.
 
-During training, in addition to samples of correct music from out corpus, we also feed the network samples of random noise as incorrect examples.
+During training, in addition to samples of correct music from our corpus, we also feed the network samples of random noise as incorrect examples.
 
-Using this network setup, we were able to achieve up to $93\%$ accuracy when classifying samples from our corpus.
+Using this network setup, we were able to achieve up to $99\%$ accuracy during training.
 
 \section{Mutations} \label{ga:mutate}
 
@@ -55,6 +55,7 @@ Retrograde and inverse can also be combined, to yield retrograde-inverse.
 Typically, the section is inverted, and the new notes are then read backwards, though some composers, such as Igor Stravinsky, reversed the order of the notes first.
 See Figure \ref{fig:p-r-i-ri} for an example of inversion, retrograde, and retrograde-inversion.
 These techniques are especially common in twelve tone music, which was developed during the early twentieth century by Arnold Schoenberg, though they can also be found in other types of music. % TODO give examples
+In our genetic algorithm, we apply these compositional techniques to the melodies from the previous generation to produce new candidates for the current generation.
 
 \begin{figure}
 	\centering
@@ -62,6 +63,9 @@ These techniques are especially common in twelve tone music, which was developed
 	\caption{Common  clockwise from the top left: prime (original form), retrograde, inverse, and retrograde-inverse.}
 	\label{fig:p-r-i-ri}
 \end{figure}
+
+A big idea when working with genetic algorithms is \textit{crossover}, where members of the population are spliced together to create new candidates.
+Finally, to maintain diversity in the population, we introduce some random changes to the population at a rate determined by some volatility factor, which can either stay constant or change over time.
 
 \section{Manipulating Melodies} \label{ga:manip}
 
