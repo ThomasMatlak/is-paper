@@ -1,8 +1,6 @@
 %!TEX root = ../username.tex
 \chapter{The Software} \label{software}
 
-% TODO give more details
-
 This chapter discusses the various components of the software used in this project.
 
 All components use music21, a Python library for music developed by MIT, to handle input and output of music notation to and from a Python-native format.
@@ -19,12 +17,10 @@ See Figure \ref{fig:softwareoverview} for a visual representation of the broad f
 
 \begin{figure}[h]
 	\centering
-	\includegraphics{figures/overview_flowchart.png}
+	\includegraphics{figures/overview_flowchart.pdf}
 	\caption{The flow of data through the software.}
 	\label{fig:softwareoverview}
 \end{figure}
-
-% TODO add diagram of data flow
 
 \section{Markov Melody Generator} \label{software:markov}
 
@@ -35,7 +31,7 @@ See Figure \ref{fig:markovflowchart} for a visual representation of the flow of 
 
 \begin{figure}[h!]
 	\centering
-	\includegraphics[width=\linewidth]{figures/markov_flowchart.png}
+	\includegraphics[width=\linewidth]{figures/markov_flowchart.pdf}
 	\caption{The flow of data through the creation of a Markov melody.}
 	\label{fig:markovflowchart}
 \end{figure}
@@ -89,7 +85,7 @@ See Figure \ref{fig:lstmflowchart} for the flow of data through the creation of 
 
 \begin{figure}[h!]
 	\centering
-	\includegraphics[width=\linewidth]{figures/lstm_flowchart.png}
+	\includegraphics[width=\linewidth]{figures/lstm_flowchart.pdf}
 	\caption{The flow of data through the creation of the LSTM neural network to use as the surrogate fitness function.}
 	\label{fig:lstmflowchart}
 \end{figure}
@@ -157,7 +153,7 @@ See Figure \ref{fig:gaflowchart} for the flow of data through the use of genetic
 
 \begin{figure}[h!]
 	\centering
-	\includegraphics[width=\linewidth]{figures/genetic_algorithm_flowchart.png}
+	\includegraphics[width=\linewidth]{figures/genetic_algorithm_flowchart.pdf}
 	\caption{The flow of data through the use of genetic algorithms to generate melodies.}
 	\label{fig:gaflowchart}
 \end{figure}
