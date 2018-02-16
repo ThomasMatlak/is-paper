@@ -5,7 +5,7 @@
 
 This chapter discusses the various components of the software used in this project.
 
-All components use \texttt{music21}, a Python library for music developed by MIT, to handle input and output of music notation to and from a Python-native format.
+All components use music21, a Python library for music developed by MIT, to handle input and output of music notation to and from a Python-native format.
 Input files are in MIDI format.
 
 \section{Overview} \label{software:overview}
@@ -15,6 +15,14 @@ The Markov chain program reads a corpus of music to create its transition matric
 These Markov chains are then used to produce the initial population for the genetic algorithm.
 The genetic algorithm uses a long short term memory artificial neural network as a surrogate fitness function, which was trained with its own music corpus.
 The final output from the genetic algorithm then is sent to the harmonization program, which creates other musical voices to accompany the generated melody.
+See Figure \ref{fig:softwareoverview} for a visual representation of the broad flow of data.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics{figures/overview_flowchart.png}
+	\caption{The flow of data through the software.}
+	\label{fig:softwareoverview}
+\end{figure}
 
 % TODO add diagram of data flow
 
@@ -23,11 +31,19 @@ The final output from the genetic algorithm then is sent to the harmonization pr
 In the code repository for this project, the directory \texttt{intervalMarkovChain} contains Python code to generate melodies using Markov chains of arbitrary order.
 The theory behind this software component is discussed in Section \ref{bg:markov} and Chapter \ref{markov}.
 The software uses two Markov chains to generate a melody, one for the intervals between notes, and the other for rhythms of notes.
+See Figure \ref{fig:markovflowchart} for a visual representation of the flow of data through the Markov melody generation.
 
-The file \texttt{intervalMarkovChain/markovChain.py} contains a class to create these Markov chains.
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=\linewidth]{figures/markov_flowchart.png}
+	\caption{The flow of data through the creation of a Markov melody.}
+	\label{fig:markovflowchart}
+\end{figure}
+
+In order to facilitate the creation of Markov chains in a more general way, we create a \texttt{MarkovChain} object, which provides methods to create and use the Markov chain.
 When a \texttt{MarkovChain} object is created, it requires an order to use.
 By default, the order is $1$.
-To create the transition matrix, the function \texttt{create\_transition\_matrix(streams, chainType)} accepts a list of the \texttt{music21} \texttt{Streams} to use as the training source, as well as what type of Markov chain it should be -- should it calculate transition probabilities for rhythms or for the intervals between notes?
+To create the transition matrix, the function \texttt{create\_transition\_matrix(streams, chainType)} accepts a list of the music21 \texttt{Streams} to use as the training source, as well as what type of Markov chain it should be -- should it calculate transition probabilities for rhythms or for the intervals between notes?
 
 An $n$th order Markov chain is represented using \texttt{defaultdict}s nested $n + 1$ deep.
 Two interesting functions in this class are \texttt{arbitrary\_depth\_dict\_get} and \texttt{arbitrary\_depth\_dict\_set}.
@@ -43,12 +59,21 @@ At each level, an empty dictionary is created if one did not already exist at th
 This function makes use of the fact that the \texttt{dict} data structure in Python can be assigned to a new variable by reference in order to go into the next index.
 On the final index, the dictionary is assigned the value at the (possibly nested) index as specified by \texttt{subscripts}.
 
-The file \texttt{intervalMarkovChain/intervalMarkovChain.py} contains code to read a corpus of music, generate the Markov chains using the \texttt{MarkovChain} class, and create a new melody with them.
+The \texttt{MarkovChain} class is implemented in \texttt{intervalMarkovChain/markovChain.py}.
+
+In order to create a Markov chain, we need a corpus with which to build it.
+Conveniently, music21 provides the ability to read and write a variety of file formats.
+In this project, we use MIDI files to store the music we use as a corpus and that we generate.
+
 Because a Markov chain requires some predetermined seed notes to refer to, the first four notes of each generated melody are C, D, E, and D.
 These pitches were chosen because the intervals between them (M2 and M-2) will appear in almost any corpus of music at least once.
 To keep some rhythmic diversity, the duration for each of these four notes is randomly chosen to be a sixteenth note, eighth note, or quarter note.
-The decision to include four seed notes was subjectively made by the author's thoughts that melodies produced using a fourth order interval Markov chain were note sufficiently better than melodies produced using a third order chain to warrant the extra computational cost.
+The decision to include four seed notes was subjectively made by the author's thoughts that melodies produced using a fourth order interval Markov chain were not sufficiently better than melodies produced using a third order chain to warrant the extra computational cost.
 In order to use a Markov chain with an order higher than four, more seed notes must be provided.
+
+Once the interval and rhythm Markov chains are generated and we have our seed notes, we can generate a melody.
+
+The process of reading reading a corpus of music, creating the Markov chains, and generating a melody is implemented in \texttt{intervalMarkovChain/intervalMarkovChain.py}.
 
 \section{Genetic Algorithms} \label{software:ga}
 
@@ -60,6 +85,14 @@ The theory behind this software component is in Section \ref{bg:ga} and Chapter 
 This program uses an LSTM neural network created using TensorFlow as a surrogate fitness function.
 TensorFlow is a machine learning library for Python developed by the Google Brain Team.
 The file \texttt{geneticAlgorithms/lstm.py} contains code to convert music data to a form usable by the artificial neural network, train the LSTM neural network on that modified music data, and save the generated model for later use.
+See Figure \ref{fig:lstmflowchart} for the flow of data through the creation of the fitness function.
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=\linewidth]{figures/lstm_flowchart.png}
+	\caption{The flow of data through the creation of the LSTM neural network to use as the surrogate fitness function.}
+	\label{fig:lstmflowchart}
+\end{figure}
 
 The first step is to read a corpus of music to train the function on.
 If no music corpus is provided, the program uses the collection of Bach chorales that come with music21.
@@ -67,25 +100,36 @@ As with the Markov chain module, this module normalizes the melodies to the key 
 This removed the need to take the key a piece is into account.
 
 After the training input is normalized it is converted to a form the artificial neural network will be able to recognize.
-This implementation splits the music into a series of sixteenth notes with pitch the pitch set to a MIDI value from $0$ to $127$.
+We perform some preprocessing by one-hot encoding the pitch of each note.
+To limit the range of octaves that can appear in our music, we use the MIDI values for each pitch.
+Because standard MIDI values range from $0$ to $127$, we can \textit{one-hot encode} the pitch as an array of zeros with a $1$ at the index of the MIDI number we want to represent.
+% TODO define one-hot-encoding
 Now that the good music data is in a form the neural network can recognize, a number of random sequences of sixteenth notes is generated to act as samples of bad samples.
-We want the neural network to train on an evenly distributed sampling of good and bad data, so we shuffle the list of data using Python's \texttt{random.shuffle()} method.
+We want the neural network to train on an evenly distributed sampling of good and bad data, so we shuffle the list.
 
 Now the program is ready to create and train the LSTM network.
-As discussed in Section \ref{ga:fitness}, we create an LSTM network that has $128$ input neurons, $256$ neurons the input is run through, and two output neurons.
+Unlike a traditional neural network, an input sample is not entered all at once.
+Instead, each note enters the network one at a time.
+For this project, we consider four measures of 4/4 music as input to the neural network.
+With our rhythmic encoding of sixteenth notes, this means for each music sample we input $16 * 4 = 64$ notes to the network.
+In more general terminology, each note is a \textit{chunk}.
+Since each note consists of a single one-hot encoded pitch, the \textit{chunk size} is $128$.
+Somewhat arbitrarily, we pass each input through $256$ neurons in the network.
+The output of the network is an array containing two values, which are the network's certainty that the input is or is not a good melody.
+
 To train the model, we run the training data through a function to reshape it to a $N$ x 64 x 128 list, where $N$ is the number of training samples.
 $70\%$ of this reshaped data is then fed through the neural network for five epochs.
-That is, the data is fed to the network five times.
+That is, the data is fed to the network and weights are adjusted five times.
 At this point, the accuracy of the model is found by evaluating the remaining $30\%$ of the training data and comparing the output to the actual labels.
 If the accuracy is sufficient, the TensorFlow session and the model are returned to be used on new data later.
 
 \subsection{Mutations} \label{software:ga:mutations}
 
-The file \texttt{geneticAlgorithms/genetic.py} contains functions to perform some operations on music21 \texttt{Streams}.
 Section \ref{ga:mutate} contains the theoretical background of these mutations.
 
-This file provides six functions that can be used to operate on music21 \texttt{stream} objects.
-These functions are \texttt{transpose()}, \texttt{inverse()}, \texttt{retrograde()}, \texttt{retrograde\_inverse()}, \texttt{inverse\_retrograde()}, and \texttt{crossover()}.
+Because we are working with music data, there are some specific operations we can perform to act as a type of mutation.
+
+The six functions we use to operate on music21 \texttt{stream} objects are \texttt{transpose()}, \texttt{inverse()}, \texttt{retrograde()}, \texttt{retrograde\_inverse()}, \texttt{inverse\_retrograde()}, and \texttt{crossover()}.
 
 \texttt{transpose(stream, interval)} is simply a wrapper for music21's \texttt{Stream.transpose()} method.
 It accepts a \texttt{Stream} and an amount to transpose by, measured in semitones.
@@ -103,12 +147,22 @@ The function returns two new \texttt{Stream}s.
 The first \texttt{Stream} we return is obtained by copying notes from \texttt{parent1} until the first index in \texttt{crossover\_points} is reached, then copying notes from \texttt{parent2} until the second index in \texttt{crossover\_points}, and so on, alternating which parent's notes are copied, until there are no more indices in \texttt{crossover\_points}.
 The second returned \texttt{Stream} is obtained similarly, but starts by copying notes from \texttt{parent2}.
 
+These functions are implemented in \texttt{geneticAlgorithms/mutations.py}
+
 \subsection{Evolving Melodies} \label{software:ga:evolving}
 
 The file \texttt{geneticAlgorithms/geneticAlgorithms.py} contains code to carry out the genetic algorithm that takes some initial population of melodies, remixes and mutates them, and eventually produces some more fit output as measured by the fitness function.
 It includes uses all of the previously discussed components to achieve this.
+See Figure \ref{fig:gaflowchart} for the flow of data through the use of genetic algorithms to generate melodies.
 
-The program starts by computing the fitness function using \texttt{lstm.py}.
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=\linewidth]{figures/genetic_algorithm_flowchart.png}
+	\caption{The flow of data through the use of genetic algorithms to generate melodies.}
+	\label{fig:gaflowchart}
+\end{figure}
+
+The program starts by creating the fitness function using \texttt{lstm.py}.
 Then the initial population is produced.
 This can either use \texttt{intervalMarkovChain/intervalMarkovChain.py} to generate the initial population, or use completely random music to accomplish this.
 Starting with the Markov chain will generally produce an initial population with a higher fitness, but it will take more time to generate the population.

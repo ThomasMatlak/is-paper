@@ -9,8 +9,9 @@ In our case, the source is a corpus of music by J.S. Bach.
 The rhythmic transition matrix is similarly generated.
 While iterating over the source to generate the interval transition matrix, we can also build the rhythmic transition matrix.
 To do this we keep track of the duration of the previous rhythm at each step and increment the transition matrix at position $b_{k,l}$ for the previous rhythmic duration $k$ and current rhythmic duration $l$.
+% TODO explain notation
 
-Because the number of possible intervals and rhythms are theoretically infinite and the transitions matrix would be very sparse, we do not want to try to store a matrix capable of holding every possible transition.
+Because the number of possible intervals and rhythms are theoretically infinite and the transition matrix would be very sparse, we do not want to try to store a matrix capable of holding every possible transition.
 Instead, we can use a hash table to only store transitions that actually appear in the source.
 
 An example rhythmic transition matrix is given in Figure \ref{fig:rhythmTransitionMatrix}, based on the \textit{Little Fugue in G Minor} by J.S. Bach.

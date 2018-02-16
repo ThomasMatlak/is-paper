@@ -1,42 +1,42 @@
 %!TEX root = ../username.tex
 \chapter{Background} \label{bg}
 
-This section contains the background information necessary to understand the project. % TODO make this more formal
-
-%\section{Mathematical Notation} \label{bg:mathNotation}
-% contains notation that may be unfamiliar to readers
-% this secion may not be necessary
-
-
+% TODO write an introduction to this section
 
 \section{Musical Terminology and Notation} \label{bg:musicTerminology}
 
+% TODO make a nicer start here
+
 In order to fully understand this project, it is important to understand the following musical terminology:
 
-\textbf{chord}: A chord consists of several notes played as a single unit.
+\textbf{Chord}: A chord consists of several notes played as a single unit.
 Most commonly, three or more notes are played simultaneously, though two notes may also constitute a chord.
 Common chords are based on the major and minor scales, with variations depending on the order of the notes from lowest to highest.
 
-\textbf{chord tone}: A note used in a chord.
+\textbf{Chord tone}: A note used in a chord.
 
-\textbf{harmony}: Harmony consists of all the notes played at the same time as the melody that are not part of the melody.
+\textbf{Harmony}: Harmony consists of all the notes played at the same time as the melody that are not part of the melody.
 In Western music, these harmonies generally follow a progression of chords based on the key that enhance the melody.
 
-\textbf{key}: The key of a piece of music determines the chords that appear, as well as the scale the music generally follows.
+\textbf{Key}: The key of a piece of music determines the chords that appear, as well as the scale the music generally follows.
 Key is notated by the key signature on the music staff.
+% TODO explain this better
 
-\textbf{melody}: The melody is the most prominent part, often played in the highest voice.
+\textbf{Measure}: In music, a measure is a collection of notes grouped together in order to give a piece some structure.
+% TODO explain this better
 
-\textbf{MIDI}: (Musical Instrument Digital Interface) A standard that defines a digital interface, communication protocol, and electrical connectors that allow computers, electronic instruments, and other audio devices to communicate.
+\textbf{Melody}: The melody is the most prominent part, often played in the highest voice.
 
-\textbf{non-chord tone}: A non-chord tone is a note that appears while a chord is played, but is not part of the chord.
+\textbf{MIDI}: (Musical Instrument Digital Interface) A standard that defines a digital interface, communication protocol, and electrical connectors that allows computers, electronic instruments, and other audio devices to communicate.
+
+\textbf{Non-chord tone}: A non-chord tone is a note that appears while a chord is played but is not part of the chord.
 Non-chord tones may be used to insert dissonance and drive a piece of music toward resolution.
 
-\textbf{note}: 
+%\textbf{Note}: 
 
-\textbf{note length/rhythm}: Durations of notes used to indicate how much of each beat a note should occupy and are divided as follows:
+\textbf{Note length/rhythm}: Durations of notes used to indicate how much of each beat a note should occupy and are divided as follows:
 The quarter note (\quarternote) is often the most basic division of the beat, at one quarter note per beat.
-The eight note (\eighthnote) is half half the duration of the quarter note, while the half note (\halfnote) is double the duration of the quarter note, and the whole note (\fullnote) is four times the duration.
+The eight note (\eighthnote) is half the duration of the quarter note, while the half note (\halfnote) is double the duration of the quarter note, and the whole note (\fullnote) is four times the duration.
 The names for these note lengths come from how many can fit in a common time measure.
 These durations continue in ether direction, so you can have sixteenth and thirty-second notes, as well as double whole notes.
 Dots can also be applied to notes to add half the duration of the base note.
@@ -44,13 +44,16 @@ For example, a dotted quarter note (\quarternote.) takes the same amount of time
 
 %\textbf{octaves}: 
 
-\textbf{pitch classes}: When two notes have the same letter, but are not necessarily in the same octave, they have the same pitch class.
+\textbf{Pitch classes}: When two notes have the same letter, but are not necessarily in the same octave, they have the same pitch class.
 When discussing the harmonic structure of music, notes of the same pitch class are equivalent, so the octaves in which notes appear do not change the harmonic structure.
 
-\textbf{scale}: A scale is a way of choosing which notes to include in a piece and is closely related to the concept of a key.
+\textbf{Scale}: A scale is a way of choosing which notes to include in a piece and is closely related to the concept of a key.
 Scales begin on one pitch class, and ascend one octave before repeating.
 Different modes have different feelings.
 For example, the major mode (Ionian) sounds more bright and happy, while the minor modes (Aeolian, Dorian, and Phrygian) sound more dark and sad.
+
+\textbf{Tonic}: The tonic pitch is the base note of a scale.
+For example, in the C Major scale, C is the tonic.
 
 \section[Markov Chains]{Markov Chains} \label{bg:markov}
 
@@ -95,6 +98,7 @@ See Figure \ref{fig:markovMatrix} for an example of the same Markov chain as in 
 	\end{tabular}
 	\caption[A Markov chain represented as a transition matrix.]{A Markov chain represented as a transition matrix. Rows represent transitions from the labeling node to the labeling node of each column.}
 	\label{fig:markovMatrix}
+	% TODO note this is the adjecency matrix of the graph
 \end{figure}
 
 \subsection{Limitations} \label{bg:markov:limitations}
@@ -114,20 +118,23 @@ See Chapter \ref{markov} for more information on how Markov chains are used in t
 
 
 \section{Genetic Algorithms} \label{bg:ga}
-% a beief crach course on GAs
+% a brief crach course on GAs
 %\subsection{Definition}
 
-In general, a \textit{genetic algorithm (GA)} is an iterative process that takes an initial population of individuals and produces a new set of individuals to become the initial population of the next generation.
+A \textit{genetic algorithm} (GA) is an iterative process that takes an initial population of individuals and remixes and mutates that population to produce a new set of individuals to become the initial population of the next generation.
 This new set is produced by performing various operations on the initial population, then using a fitness function to choose the best performing individuals.
-% TODO define initial population, sequences
-An essential operation for GAs is mating the initial population, that is, splicing the initial individuals together to produce new sequences.
-After creating the new population, we introduce mutations to keep the population from stagnating.
-These mutations can include random changes or more intentional operations to improve the fitness of the individual.
+The idea is that over the course of many generations, fitness tends to increase, as only the best performing individuals are allowed to survive to the next generation.
+
+An essential operation for GAs is mating the initial population, that is, splicing individuals together to produce new sequences.
+Other operations can also be defined to operate on or more individuals.
+After creating the new candidate population, we introduce mutations to keep the population from stagnating.
+These mutations make random changes to the candidate population.
+For example, in a binary string, a $0$ may get flipped to a $1$, which might 
 
 To choose the new initial population, a fitness function is defined which measures how close an individual is to the desired output.
-If some individuals reach a certain level fitness, they are the output of the genetic algorithm.
+If some individuals reach a certain level of fitness, they are the output of the genetic algorithm.
 Otherwise, the best performing individuals become the initial population of the next generation.
-This process continues until some individuals perform well enough.
+This process continues until some individuals perform well enough or a maximum number of generations is reached.
 
 See Chapter \ref{ga} for more information on how genetic algorithms are used in this project.
 
