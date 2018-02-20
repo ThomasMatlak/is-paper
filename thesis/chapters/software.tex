@@ -98,8 +98,11 @@ This removed the need to take the key a piece is into account.
 After the training input is normalized it is converted to a form the artificial neural network will be able to recognize.
 We perform some preprocessing by one-hot encoding the pitch of each note.
 To limit the range of octaves that can appear in our music, we use the MIDI values for each pitch.
-Because standard MIDI values range from $0$ to $127$, we can \textit{one-hot encode} the pitch as an array of zeros with a $1$ at the index of the MIDI number we want to represent.
-% TODO define one-hot-encoding
+Because the MIDI standard defines values from $0$ to $127$, we can \textit{one-hot encode} the pitch as an array of zeros with a $1$ at the index of the MIDI number we want to represent.
+One-hot encoding is a method used in data science to represent categorical data in a numeric format.
+Even though the MIDI values are already numeric, we one-hot encode them because the difference of a half step (one MIDI value) can be the distinction between a good melody and a better melody.
+Additionally, MIDI values are only ever integer values, so we do not need to represent them as floats.
+Importantly, one-hot encoding the MIDI values improves the accuracy of the network.
 Now that the good music data is in a form the neural network can recognize, a number of random sequences of sixteenth notes is generated to act as samples of bad samples.
 We want the neural network to train on an evenly distributed sampling of good and bad data, so we shuffle the list.
 
