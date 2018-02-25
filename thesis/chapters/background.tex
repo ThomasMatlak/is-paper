@@ -5,32 +5,35 @@
 
 \section{Musical Terminology and Notation} \label{bg:musicTerminology}
 
-% TODO make a nicer start here
-
-In order to fully understand this project, it is important to understand the following musical terminology:
+This paper contains the some musical terminology which not all readers may be familiar with.
+This section contains definitions of musical terms that are important to fully understand the rest of the paper.
 
 \textbf{Chord}: A chord consists of several notes played as a single unit.
 Most commonly, three or more notes are played simultaneously, though two notes may also constitute a chord.
 Common chords are based on the major and minor scales, with variations depending on the order of the notes from lowest to highest.
 
-\textbf{Chord tone}: A note used in a chord.
+\textbf{Chord tone}: A chord tone is a note contained in a chord.
+For example, C, E, and G are chord tones of a C Major chord.
 
 \textbf{Harmony}: Harmony consists of all the notes played at the same time as the melody that are not part of the melody.
 In Western music, these harmonies generally follow a progression of chords based on the key that enhance the melody.
 
 \textbf{Key}: The key of a piece of music determines the chords that appear, as well as the scale the music generally follows.
-Key is notated by the key signature on the music staff.
-% TODO explain this better
+The name of a key takes the form of <Pitch> <Modifier>, where the pitch is one of the fifteen common pitches, and modifier specifies the mode of the key, most ofter Major or Minor.
+The pitch indicates the starting pitch of the scale.
+Key is notated by the key signature on the music staff, a set of sharps or flats on specific lines and spaces.
 
 \textbf{Measure}: In music, a measure is a collection of notes grouped together in order to give a piece some structure.
-% TODO explain this better
+Measures within a piece generally contain the same number of beats.
 
 \textbf{Melody}: The melody is the most prominent part, often played in the highest voice.
+It is the recognizable tune that generally defines a piece of music.
 
 \textbf{MIDI}: (Musical Instrument Digital Interface) A standard that defines a digital interface, communication protocol, and electrical connectors that allows computers, electronic instruments, and other audio devices to communicate.
 
 \textbf{Non-chord tone}: A non-chord tone is a note that appears while a chord is played but is not part of the chord.
 Non-chord tones may be used to insert dissonance and drive a piece of music toward resolution.
+For example, F is a non-chord tone when played over a C Major chord.
 
 %\textbf{Note}: 
 
@@ -86,6 +89,7 @@ When implementing a Markov chain in code, however, it is perhaps easier to repre
 We call this $(n + 1)$-dimensional array the \textit{transition matrix}.
 It contains the probabilities of transitioning from one state to another.
 See Figure \ref{fig:markovMatrix} for an example of the same Markov chain as in Figure \ref{fig:markovGraph} in matrix form.
+Note that the matrix representation is essentially an \textit{adjacency matrix} of the graph, where edge weights are the probabilities of transitioning between nodes.
 
 \begin{figure}[h]
 	\centering
@@ -98,14 +102,12 @@ See Figure \ref{fig:markovMatrix} for an example of the same Markov chain as in 
 	\end{tabular}
 	\caption[A Markov chain represented as a transition matrix.]{A Markov chain represented as a transition matrix. Rows represent transitions from the labeling node to the labeling node of each column.}
 	\label{fig:markovMatrix}
-	% TODO note this is the adjecency matrix of the graph
 \end{figure}
 
 \subsection{Limitations} \label{bg:markov:limitations}
 
 A major limitation of Markov chains is their inability to generate truly novel output.
-In order for some state to appear, a transition to that state from the previous state must appear in the source material.
-% TODO define source material
+In order for some state to appear, a transition to that state from the previous state must appear in the \textit{source material}, the set of data from which the transition probabilities come.
 That is, no truly novel transitions may appear; all transitions that appear in the output of the Markov chain must have appeared somewhere before.
 Additionally, lower-order chains may produce nonsensical output, whereas a chain of sufficiently high order will exactly copy the source material.
 Another limitation is that the process may get stuck in a ``local loop''.
@@ -136,6 +138,28 @@ If some individuals reach a certain level of fitness, they are the output of the
 Otherwise, the best performing individuals become the initial population of the next generation.
 This process continues until some individuals perform well enough or a maximum number of generations is reached.
 
-See Chapter \ref{ga} for more information on how genetic algorithms are used in this project.
+As a simple example, consider a population of four random 4-bit bit strings.
+Our goal is to produce a bit string consisting of all $1$s.
+As our fitness function, let each $1$ in the bit string add $0.25$ to the fitness, so a bit string of all $1$s has a fitness of $1.0$.
+Let the initial population contain the bit strings $0100$, $1001$, $0010$, and $1100$, which have fitness values of $0.25$, $0.5$, $0.25$, and $0.5$, respectively.
+We put these individuals into the pool of candidate strings.
+Next, we can randomly select some of these strings to crossover.
+Consider the first and second bit strings: $0100$ and $1001$.
+Let us perform the crossover at the middle.
+This gives us the candidates $0101$ and $1000$.
+Next, consider the third and fourth bit strings: $0010$ and $1100$. Let us crossover at the middle.
+This gives us two more candidate strings, $1110$ and $0000$.
+At this point, the candidate population is $0100$, $1001$, $0010$, $1100$, $0101$, $1000$, $1110$, and $0000$.
+Suppose no mutations are chosen for this generation.
 
-% TODO give a simple example here
+Choosing the fittest four of these, we get $1110$, $1001$, $1100$, and $0101$.
+Now perform crossover of the second and third bit strings, again at the middle.
+This gives us $1000$ and $1101$.
+At this point, the candidate population consists of $1110$, $1001$, $1100$, $0101$, $1000$, and $1101$.
+Let us preform some mutations.
+Suppose we randomly choose the first and fifth strings to mutate, each at position $4$.
+This means we flip the bits of these strings at the fourth position.
+Now the candidate population is $1111$, $1001$, $1100$, $0101$, $1001$, and $1101$.
+We have a bit string consisting entirely of $1$s, so our goal has been accomplished, and we may exit the process.
+
+See Chapter \ref{ga} for more information on how genetic algorithms are used in this project.
