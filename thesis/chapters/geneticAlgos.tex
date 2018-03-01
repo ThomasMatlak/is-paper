@@ -17,15 +17,21 @@ We could manually define a function that applies some penalty for breaking one o
 Additionally, if we want to create music resembling a different era, we would have to write a new fitness function.
 % Apparently, George Papadopoulos shares the same name as someone who plead guilty to lying to the FBI. What an unfortunate name to share.
 
-Rather, a fitness function can be approximated using what we call a \textit{surrogate model}. % cite a paper on this
+Rather, a fitness function can be approximated using what we call a \textit{surrogate model}.
 A surrogate model is used in contexts where direct measurement is computationally expensive or otherwise difficult to define.
-% TODO write about accuracy results from these authors
 In this project we use an artificial neural network as the surrogate model.
 We expect the neural network to pick up on which rules are the most important, altering its weights accordingly.
 Because music has temporal properties, the type of neural network used in this project is a \textit{long short-term memory} (LSTM) neural network.
 An LSTM network is a special type of \textit{recurrent neural network}, where nodes link back to themselves.
 This property of saving information about previous elements in the input sequence allows the LSTM neural network to build relationships between parts of the inputs that are far apart in a time sequence.
-% TODO insert graphic here
+Figure \ref{fig:lstm_cell} shows the idea that the input to the LSTM neuron is kept in subsequent iterations by the neuron passing a value back to itself.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics{figures/lstm_cell.pdf}
+	\caption{An LSTM Neuron}
+	\label{fig:lstm_cell}
+\end{figure}
 
 We have two classes of training data: ``good'' melodies, which were written by a real composer, and ``bad'' melodies, which are entirely randomly generated before training the fitness function.
 We expect the network might pick up on attributes such as how long a note lasts, what the pitch of a note is, and its relation to the notes around it.
@@ -51,7 +57,7 @@ Retrograde reverses the order of one or both of the rhythms and pitches of a sec
 Retrograde and inverse can also be combined, to yield retrograde-inverse.
 Typically, the section is inverted, and the new notes are then read backwards, though some composers, such as Igor Stravinsky, reversed the order of the notes first.
 See Figure \ref{fig:p-r-i-ri} for an example of inversion, retrograde, and retrograde-inversion.
-These techniques are especially common in twelve tone music, which was developed during the early twentieth century by Arnold Schoenberg, though they can also be found in other types of music. % TODO give examples
+These techniques are especially common in twelve tone music, which was developed during the early twentieth century by Arnold Schoenberg, though they can also be found in other types of music.
 An example of a twelve tone piece is Schoenberg's \textit{Wind Quintet} Op. 26.
 In our genetic algorithm, we apply these compositional techniques to the melodies from the previous generation to produce new candidates for the current generation.
 
