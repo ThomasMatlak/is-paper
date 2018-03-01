@@ -168,15 +168,14 @@ Starting with the Markov chain will generally produce an initial population with
 The fitness values of the initial population are calculated while the initial population is being generated.
 
 At this point the program is ready to enter the main loop.
-Its stopping conditions are when a melody has a high enough fitness, or the maximum number of generations has been reached.
-Inside the loop, the program uses the \texttt{multiprocess} library to create a pool of workers to remix the population using the functions inside of \texttt{mutations.py}.
-% TODO explain why the choice to use multiprocess was made
+Its stopping conditions are when a melody has a high enough fitness or the maximum number of generations has been reached.
+Inside the loop, the program uses a pool of worker processes to remix the population using the functions inside of \texttt{mutations.py}.
+% ... uses the \texttt{multiprocess} library from The UQ Foundation \cite{mckerns_better_2018}.
+% Rather than the standard \texttt{multiprocessing} library, \texttt{multiprocess} was chosen because music21 \texttt{streams} use weak references to relate notes to the streams to which they belong, which Python's \texttt{pickle} library cannot handle.
+% \texttt{multiprocess} is a fork of \texttt{multiprocessing} that uses \texttt{dill}, a fork of \texttt{pickle} that allows for weak references.
 After this remixing, the loop generates some melodies using crossover, and mutates some of the melodies.
 This mutation is to ensure the population does not stagnate.
 At this point the loop calculates the fitnesses of the new population, chooses the seed population for the next generation, and goes back to the beginning of the loop.
-
-% \section{Harmonization and Counterpoint}
-
 
 \section{How to Use the Software} \label{software:howtouse}
 
