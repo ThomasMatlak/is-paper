@@ -136,7 +136,7 @@ After creating the new candidate population, we introduce mutations to keep the 
 These mutations make random changes to the candidate population.
 For example, in a binary string, a $0$ may get flipped to a $1$, which might 
 
-To choose the new initial population, a fitness function is defined which measures how close an individual is to the desired output.
+To choose the new initial population, we define a fitness function which measures how close an individual is to the desired output.
 If some individuals reach a certain level of fitness, they are the output of the genetic algorithm.
 Otherwise, the best performing individuals become the initial population of the next generation.
 This process continues until some individuals perform well enough or a maximum number of generations is reached.
@@ -159,7 +159,7 @@ Choosing the fittest four of these, we get $1110$, $1001$, $1100$, and $0101$.
 Now perform crossover of the second and third bit strings, again at the middle.
 This gives us $1000$ and $1101$.
 At this point, the candidate population consists of $1110$, $1001$, $1100$, $0101$, $1000$, and $1101$.
-Let us preform some mutations.
+Let us preform some mutations this time.
 Suppose we randomly choose the first and fifth strings to mutate, each at position $4$.
 This means we flip the bits of these strings at the fourth position.
 Now the candidate population is $1111$, $1001$, $1100$, $0101$, $1001$, and $1101$.
