@@ -63,6 +63,8 @@ Algorithmic music composition is a popular area of research in computer aided mu
 One subtopic of this area is the automated creation of pleasing melodies.
 This paper explores two machine learning approaches to algorithmically creating melodies: Markov chains and genetic algorithms.
 Markov chains can generate a rough imitation of the corpus of music upon which they are based.
+Though Markov chains can generate a rough approximation of a musical style, we want to refine the music to bring it closer to the desired target style.
+To accomplish this we use genetic algorithms to take an initial population of melodies and tweak and remix them to create better melodies.
 Genetic algorithms have been used extensively in previous research, but this paper proposes the use of a long short-term memory artificial neural network to act as a surrogate fitness function, rather than defining a set of rules for good music and penalties for breaking those rules.
 \end{abstract}
 

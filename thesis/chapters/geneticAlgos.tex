@@ -23,6 +23,7 @@ Because music has temporal properties, the type of neural network used in this p
 An LSTM network is a special type of \textit{recurrent neural network}, where nodes link back to themselves.
 This property of saving information about previous elements in the input sequence allows the LSTM neural network to build relationships between parts of the inputs that are far apart in a time sequence.
 Figure \ref{fig:lstm_cell} shows the idea that the input to the LSTM neuron is kept in subsequent iterations by the neuron passing a value back to itself.
+$in_k$ and $out_k$ indicate the values passed to and from the cell at time $k$, respectively.
 
 \begin{figure}[h]
 	\centering

@@ -1,7 +1,17 @@
 %!TEX root = ../username.tex
 \chapter{Background} \label{bg}
 
-% TODO write an introduction to this section
+Computer Music is a field of computing focused on the creation of music, either as a tool to assist composers or by using the computer to create its own music without human intervention.
+The field includes the development of programs such as digital audio workstations, which provide a library of sounds for the composer to use and an interface to create music; electronic instruments; and computer generated music.
+This paper focuses on a subset computer generated music: algorithmic creation of melodies.
+
+The paper is organized as follows:
+the rest of the first chapter contains background information on musical, mathematical, and computational concepts necessary to fully comprehend the project,
+the second chapter discusses some of the mathematics related to what makes music pleasing,
+the third chapter discusses the use of Markov chains to generate melodies,
+the fourth chapter discusses the use of genetic algorithms in melody generation,
+and the fifth chapter discusses the software used to implement the concepts in chapters \ref{markov} and \ref{ga}.
+Finally, the last chapter discusses the results obtained from the project, including some examples of music produced by the software.
 
 \section{Musical Terminology and Notation} \label{bg:musicTerminology}
 
@@ -118,28 +128,22 @@ This may happen when the chain proceeds to a state which only transitions to its
 
 See Chapter \ref{markov} for more information on how Markov chains are used in this project.
 
-%\section{Neural Networks} \label{bg:nn}
-% maybe? would give brief crash course of NNs
-
-
 \section{Genetic Algorithms} \label{bg:ga}
-% a brief crach course on GAs
-%\subsection{Definition}
 
 A \textit{genetic algorithm} (GA) is an iterative process that takes an initial population of individuals and remixes and mutates that population to produce a new set of individuals to become the initial population of the next generation.
 This new set is produced by performing various operations on the initial population, then using a fitness function to choose the best performing individuals.
 The idea is that over the course of many generations, fitness tends to increase, as only the best performing individuals are allowed to survive to the next generation.
 
-An essential operation for GAs is mating the initial population, that is, splicing individuals together to produce new sequences.
+An essential operation for GAs is \textit{crossover}, that is, splicing individuals together to produce new sequences.
 Other operations can also be defined to operate on or more individuals.
 After creating the new candidate population, we introduce mutations to keep the population from stagnating.
 These mutations make random changes to the candidate population.
-For example, in a binary string, a $0$ may get flipped to a $1$, which might 
+For example, in a binary string, a $0$ may get flipped to a $1$, which may be a small change, but it could improve the fitness of the individual.
 
 To choose the new initial population, we define a fitness function which measures how close an individual is to the desired output.
 If some individuals reach a certain level of fitness, they are the output of the genetic algorithm.
 Otherwise, the best performing individuals become the initial population of the next generation.
-This process continues until some individuals perform well enough or a maximum number of generations is reached.
+This process continues until some individuals perform well enough, a maximum number of generations is reached, or fitnesses stagnate.
 
 As a simple example, consider a population of four random 4-bit bit strings.
 Our goal is to produce a bit string consisting of all $1$s.
@@ -148,9 +152,10 @@ Let the initial population contain the bit strings $0100$, $1001$, $0010$, and $
 We put these individuals into the pool of candidate strings.
 Next, we can randomly select some of these strings to crossover.
 Consider the first and second bit strings: $0100$ and $1001$.
-Let us perform the crossover at the middle.
+For the sake of simplicity, let us perform crossover at the middle.
 This gives us the candidates $0101$ and $1000$.
-Next, consider the third and fourth bit strings: $0010$ and $1100$. Let us crossover at the middle.
+Next, consider the third and fourth bit strings: $0010$ and $1100$.
+Again, to keep the example simple, let us perform crossover at the middle.
 This gives us two more candidate strings, $1110$ and $0000$.
 At this point, the candidate population is $0100$, $1001$, $0010$, $1100$, $0101$, $1000$, $1110$, and $0000$.
 Suppose no mutations are chosen for this generation.

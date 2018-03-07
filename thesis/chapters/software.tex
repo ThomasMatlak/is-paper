@@ -8,8 +8,12 @@ Input files are in MIDI format.
 \section{Overview} \label{software:overview}
 
 The data flow for the set of programs used in this project are as follows:
-The Markov chain program reads a corpus of music to create its transition matrices.
+Optionally, the Markov chain program reads a corpus of music to create its transition matrices.
+Because good music exists in many keys, when reading the corpus of music, we normalize all the music to the key of C Major or A Minor.
+These keys are chosen because their key signature contains no sharps and no flats.
+We also cache the normalized corpus, so we do not need to go through the process of determining the key of a piece and transposing it every time we run the program.
 These Markov chains are then used to produce the initial population for the genetic algorithm.
+If we choose not to use the Markov chain program to generate the initial population, we use a randomly generated initial population instead.
 The genetic algorithm uses an LSTM neural network (see Section \ref{ga:fitness}) as a surrogate fitness function, which was trained with its own music corpus.
 See Figure \ref{fig:softwareoverview} for a visual representation of the broad flow of data.
 
