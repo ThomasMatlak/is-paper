@@ -16,28 +16,28 @@ Two different versions of the fitness function were used; one trained on music21
 As expected, the fast paced violin sonata by Haydn and the piano exercise by Scarlatti performed much better when using the fitness function trained with the cello suites, while the Little Fugue, which contains some longer rhythms performed better when the fitness function trained with the chorales.
 This is expected because the cello suites are fast paced and the chorales have a slow pace.
 
-\begin{figure}[h]
+\begin{figure}[]
 	\centering
 	\includegraphics[width=\linewidth]{figures/cello_suite.pdf}
 	\caption{Opening of the first movement of the first Cello Suite by J.S. Bach.}
 	\label{fig:music:cello_suite}
 \end{figure}
 
-\begin{figure}[h]
+\begin{figure}[]
 	\centering
 	\includegraphics[width=\linewidth]{figures/little_fugue.pdf}
 	\caption{Little Fugue in G Minor by J.S. Bach.}
 	\label{fig:music:little_fugue}
 \end{figure}
 
-\begin{figure}[h]
+\begin{figure}[]
 	\centering
 	\includegraphics[width=\linewidth]{figures/scarlatti.pdf}
 	\caption{Piano Exercise by Domenico Scarlatti.}
 	\label{fig:music:scarlatti}
 \end{figure}
 
-\begin{figure}[h]
+\begin{figure}[]
 	\centering
 	\includegraphics[width=\linewidth]{figures/haydn.pdf}
 	\caption{Violin Sonata in G Major by Franz Joseph Haydn.}
@@ -46,7 +46,7 @@ This is expected because the cello suites are fast paced and the chorales have a
 
 See Figures \ref{fig:music:cello_suite}, \ref{fig:music:little_fugue}, \ref{fig:music:scarlatti}, and \ref{fig:music:haydn} for the samples from the pieces that were tested for their fitnesses.
 
-\begin{table}[h]
+\begin{table}[]
 	\centering
 	\begin{tabular}{c | c c}
 		Piece & Fitness (Chorales) & Fitness (Cello Suites) \\
@@ -132,7 +132,7 @@ Even though the melody shifted from the expected key, it manages to maintain coh
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=\linewidth]{figures/genetic_melody_1.pdf}
+	\includegraphics[width=\linewidth]{figures/genetic_melody_2.pdf}
 	\caption{A melody generated with the genetic algorithm.}
 	\label{fig:music:genetic2}
 \end{figure}
@@ -178,5 +178,3 @@ In another approach, Kamil Adiloglu and Ferda Alpaslan \cite{adiloglu_machine_20
 
 Along with adding counterpoint or harmony generation, one might take different approaches to produce melodies.
 For example, Chun-Chi Chen and Risto Miikkulainen \cite{chen_creating_2001} combine neural networks and genetic algorithms by using an evolutionary algorithm to find neural networks that produce good melodies.
-
-% By expanding this project, its use could go beyond merely providing musical inspiration to the composer; it could create entire works, complete with a melody, bass line, and parts in between.

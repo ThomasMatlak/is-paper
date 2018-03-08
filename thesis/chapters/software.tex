@@ -28,7 +28,7 @@ See Figure \ref{fig:softwareoverview} for a visual representation of the broad f
 
 In the code repository for this project, the directory \texttt{intervalMarkovChain} contains Python code to generate melodies using Markov chains of arbitrary order.
 The theory behind this software component is discussed in Section \ref{bg:markov} and Chapter \ref{markov}.
-The software uses two Markov chains to generate a melody, one for the intervals between notes, and the other for rhythms of notes.
+The software uses two Markov chains to generate a melody: one for the intervals between notes and the other for rhythms of notes.
 See Figure \ref{fig:markovflowchart} for a visual representation of the flow of data through the Markov melody generation.
 
 \begin{figure}[h!]
@@ -128,7 +128,7 @@ If the accuracy is sufficient, the \texttt{TensorFlow} session and the model are
 
 Section \ref{ga:mutate} contains the theoretical background of these mutations.
 
-Because we are working with music data, there are some specific operations we can perform to act as a type of mutation.
+Because we are working with music data, there are some specific operations we can perform to act as a type of mutation, as well as crossover.
 
 The six functions we use to operate on \texttt{music21} \texttt{stream} objects are \texttt{transpose()}, \texttt{inverse()}, \texttt{retrograde()}, \texttt{retrograde\_inverse()}, \texttt{inverse\_retrograde()}, and \texttt{crossover()}.
 
@@ -194,8 +194,8 @@ From the command line, this might look like
 \texttt{python3 intervalMarkovChain.py}
 
 \noindent to use the default music corpus.
-Also, the function \texttt{generate\_melody()} inside \texttt{intervalMarkovChain.py} checks if the parameter \texttt{corpus} is set to \texttt{False}.
-In this case that it is \texttt{False}, the function uses the built in \texttt{music21} collection of Bach chorales.
+Also, the function \texttt{generate\_melody()}, which handles the creation of melodies inside \texttt{intervalMarkovChain.py}, checks if the parameter \texttt{corpus} is set to \texttt{False}.
+In the case that it is \texttt{False}, the function uses the built in \texttt{music21} collection of Bach chorales.
 This option is only available when importing the file from another Python script.
 
 
