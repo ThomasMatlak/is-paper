@@ -94,7 +94,7 @@ See Figure \ref{fig:lstmflowchart} for the flow of data through the creation of 
 
 The first step is to read a corpus of music to train the function on.
 If no music corpus is provided, the program uses the collection of Bach chorales that come with \texttt{music21}.
-As with the Markov chain module, this module normalizes the melodies to the key of C before training.
+As with the Markov chain module, this module normalizes the melodies to the key of C before training, using cached copies of the normalized scores if they are available.
 This removes the need to take the key a piece is into account.
 
 After the training input is normalized it is converted to a form the artificial neural network will be able to recognize.
@@ -123,6 +123,12 @@ $70\%$ of this reshaped data is then fed through the neural network for five epo
 That is, the data is fed to the network and weights are adjusted five times.
 At this point, the accuracy of the model is found by evaluating the remaining $30\%$ of the training data and comparing the output to the actual labels.
 If the accuracy is sufficient, the \texttt{TensorFlow} session and the model are returned to be used on new data later.
+
+Using the \texttt{evaluate\_part()} function, the fitness for a melody is the output of the mathematical squashing function $f(x) = \frac{\arctan(\frac{x}{5}) + \frac{\pi}{2}}{\pi}$, where $x$ is the difference between the outputs of the LSTM neural network.
+We use this function to normalize all fitnesses to the range $(0,1)$.
+Arctangent naturally has limits of $\frac{-\pi}{2}$ and $\frac{\pi}{2}$, so we add $\frac{\pi}{2}$ to shift the fitness up, then divide by $\pi$ to squash the fitness to less than $1$.
+We divide $x$ by $5$ to make the output more uniform across the interval $(0,1)$.
+Otherwise, the function approaches $0$ and $1$ too quickly as $x$ moves further from $0$.
 
 \subsection{Mutations} \label{software:ga:mutations}
 

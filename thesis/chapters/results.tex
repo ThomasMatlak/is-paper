@@ -9,8 +9,8 @@
 
 With the neural network setup described in Section \ref{software:ga:fitness}, the network is able to correctly predict whether a set of notes is Bach or not $99\%$ of the time.
 This is the same whether it is trained on the Bach cello suites or the chorales provided by music21.
-% TODO rewrite mention of fitness values and how they are calcultated
-Since the measure of fitness is the difference between the two outputs of the network: how much the network ``thinks'' the sample is and is not Bach music, the possible fitness values range from about $-25$ to $25$, with the occasional melody exceeding this range.
+As described in Section \ref{software:ga:fitness}, fitness values are the output of a squashing function with the range $(0,1)$.
+The input to the squashing function is the difference between how much the LSTM neural network thinks the melody is good and how much the network thinks it is bad.
 Table \ref{table:fitnesscomp} contains the fitness values for music by Bach, Domenico Scarlatti, and Franz Joseph Haydn.
 Two different versions of the fitness function were used; one trained on music21's Bach chorales, and the other on Bach cello suites.
 As expected, the fast paced violin sonata by Haydn and the piano exercise by Scarlatti performed much better when using the fitness function trained with the cello suites, while the Little Fugue, which contains some longer rhythms performed better when the fitness function trained with the chorales.
@@ -51,10 +51,10 @@ See Figures \ref{fig:music:cello_suite}, \ref{fig:music:little_fugue}, \ref{fig:
 	\begin{tabular}{c | c c}
 		Piece & Fitness (Chorales) & Fitness (Cello Suites) \\
 		\hline
-		J.S. Bach Cello Suite 1, Mvmt. 1 & $-18.3$ & $12.7$ \\
-		J.S. Bach Little Fugue in G Minor & $15.0$ & $11.7$ \\
-		Domenico Scarlatti & $4.3$ & $13.6$ \\
-		Haydn Violin Sonata & $-10.7$ & $15$ % TODO rerun this to get real value of melody
+%		J.S. Bach Cello Suite 1, Mvmt. 1 & $-18.3$ & $12.7$ \\
+		J.S. Bach Little Fugue in G Minor & $0.89758$ & $0.87145$ \\
+		Domenico Scarlatti & $0.72609$ & $0.88786$ \\
+		Haydn Violin Sonata & $0.13915$ & $0.89758$ % TODO rerun this to get real value of melody
 	\end{tabular}
 	\caption{Fitness values of music by various authors using models trained with music21's Bach chorales and Bach's cello suites}
 	\label{table:fitnesscomp}
