@@ -51,10 +51,10 @@ See Figures \ref{fig:music:cello_suite}, \ref{fig:music:little_fugue}, \ref{fig:
 	\begin{tabular}{c | c c}
 		Piece & Fitness (Chorales) & Fitness (Cello Suites) \\
 		\hline
-%		J.S. Bach Cello Suite 1, Mvmt. 1 & $-18.3$ & $12.7$ \\
-		J.S. Bach Little Fugue in G Minor & $0.89758$ & $0.87145$ \\
-		Domenico Scarlatti & $0.72609$ & $0.88786$ \\
-		Haydn Violin Sonata & $0.13915$ & $0.89758$ % TODO rerun this to get real value of melody
+%		J.S. Bach Cello Suite 1, Mvmt. 1 & $0.15419$ & $0.90229$ \\
+		J.S. Bach Little Fugue in G Minor & $0.87171$ & $0.86847$ \\
+		Domenico Scarlatti & $0.23755$ & $0.92652$ \\
+		Haydn Violin Sonata & $0.77070$ & $0.91706$
 	\end{tabular}
 	\caption{Fitness values of music by various authors using models trained with music21's Bach chorales and Bach's cello suites}
 	\label{table:fitnesscomp}
@@ -70,14 +70,14 @@ Thus, since the time to generate the initial population using Markov chains is c
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=\linewidth]{fitnessOverTime_markovStart_onlyTop.png}
+	\includegraphics[width=\linewidth]{fitnesses_markov_start.pdf}
 	\caption{Fitness over 50 generations with an initial population generated using Markov chains.}
 	\label{fig:fitness_markov}
 \end{figure}
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=\linewidth]{figures/fitnessOverTime_randomStart_onlyTop.png}
+	\includegraphics[width=\linewidth]{figures/fitnesses_random_start.pdf}
 	\caption{Fitness over 50 generations with a random initial population.}
 	\label{fig:fitness:random}
 \end{figure}
