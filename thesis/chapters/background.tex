@@ -55,7 +55,7 @@ For example, F is a non-chord tone when played over a C Major chord.
 
 \textbf{Note}: A note is a pitch coupled with a duration.
 The pitch is given as a pitch class and the octave to which the note belongs.
-For example, C4 refers to the fourth C to appear from the left on a standard $88$ key piano.
+For example, C4 refers to the fifth C to appear from the left on a standard $88$ key piano.
 When discussing notes we often ignore the duration and only consider the pitch.
 
 \textbf{Note length/rhythm}: Durations of notes used to indicate how much of each beat a note should occupy and are divided as follows:
@@ -85,7 +85,7 @@ For example, in the C Major scale, C is the tonic.
 In the tradition of Western music, there exist some general guidelines for creating pleasing melodies, a small sample of which follow.
 Transitions between notes should primarily occur in a stepwise manner, and one should avoid leaps of more than an octave.
 A piece of music as a whole should follow a chord progression, or set of recognizable chords between which a piece moves.
-If we use the seventh note (also called the \textit{leading tone}) in the scale, the next note should be the tonic of the scale.
+Additionally, if we use the seventh note (also called the \textit{leading tone}) in the scale, the next note should be the tonic of the scale.
 These are not all of the rules for a good melody, and some of the rules are rather broad, but they provide a decent starting point to quickly identify good and bad melodies.
 
 Let us examine a simple example of writing our own music.
@@ -174,7 +174,7 @@ The \textit{input layer} consists of nodes that accept numerical inputs from som
 The \textit{output layer} consists of nodes that expose the weighted sum of their inputs to outside sources.
 \textit{Hidden layers} of nodes accept numeric inputs from the previous layer and produce numeric outputs that pass to following layers.
 The previous layer can be either the input layer or another hidden layer and the following layer can be either another hidden layer or the output layer.
-Hidden layers generally all contain the same number of nodes, though this is not necessary.
+Hidden layers often all contain the same number of nodes, though this is not necessary.
 In general, the output from each node in a given layer is passed to every node in the following layer, and each node receives the output from every node in the previous layer as input.
 See Figure \ref{fig:ann} for a visual of a simple ANN.
 
@@ -189,7 +189,7 @@ To constrain the output of the neurons, we use an \textit{activation function} t
 Common activation functions include the identity, sigmoid (or logistic), binary step, and arctangent functions.
 The identity function preserves the computed value as is, without any constraint on its bounds.
 The binary step function forces the computed value to either zero or one, while the sigmoid function merely bounds the computed value to between zero and one.
-The arctangent function bounds the output between $\frac{-\pi}{2}$ and $\frac{\pi}{2}$, and provides a faster ramp up from the minimum value to the maximum value.
+The arctangent function bounds the output between $\frac{-\pi}{2}$ and $\frac{\pi}{2}$, and provides a faster ramp up from the minimum value to the maximum value than the sigmoid function.
 See Figure \ref{fig:activation_functions} for some visualizations of these activation functions.
 
 \begin{figure}
@@ -205,7 +205,7 @@ The sigmoid and arctangent functions both constrain the output to a range of rea
 One possible use case for this type of function is to provide the percent certainty that an input belongs to some category.
 We use the identity function when we do not want to alter the output in any way.
 
-In order for an ANN to be useful, it must go through training to set the weight for each node and accurately predict data.
+In order for an ANN to be useful, it must go through training to set the bias for each node and the weight of every connection between nodes in order to accurately predict data.
 The most common algorithm to train ANNs is the \textit{backpropogration} algorithm.
 In this, the weights are randomly initialized, then inputs are passed throught the network and the output is compared to the expected output.
 Then, the error is used to determine the magnitude of the change to the weights.
