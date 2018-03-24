@@ -176,14 +176,28 @@ The \textit{output layer} consists of nodes that expose the weighted sum of thei
 The previous layer can be either the input layer or another hidden layer and the following layer can be either another hidden layer or the output layer.
 Hidden layers generally all contain the same number of nodes, though this is not necessary.
 In general, the output from each node in a given layer is passed to every node in the following layer, and each node receives the output from every node in the previous layer as input.
-% TODO insert figure of basic ann
+See Figure \ref{fig:ann} for a visual of a simple ANN.
+
+\begin{figure}
+	\centering
+	\includegraphics[width=\textwidth]{figures/ann.pdf}
+	\caption{A simple ANN with an input layer, one hidden layer, and an output layer.}
+	\label{fig:ann}
+\end{figure}
 
 To constrain the output of the neurons, we use an \textit{activation function} to provide upper and lower bounds for the output and to force these values towards those new bounds.
 Common activation functions include the identity, sigmoid (or logistic), binary step, and arctangent functions.
 The identity function preserves the computed value as is, without any constraint on its bounds.
 The binary step function forces the computed value to either zero or one, while the sigmoid function merely bounds the computed value to between zero and one.
 The arctangent function bounds the output between $\frac{-\pi}{2}$ and $\frac{\pi}{2}$, and provides a faster ramp up from the minimum value to the maximum value.
-% TODO insert figure of some activtaion functions
+See Figure \ref{fig:activation_functions} for some visualizations of these activation functions.
+
+\begin{figure}
+	\centering
+	\includegraphics{figures/activation_functions.pdf}
+	\caption{Some common activation functions. Clockwise from the top left: identity, binary step, arctangent, sigmoid.}
+	\label{fig:activation_functions}
+\end{figure}
 
 Each activation function has a different case where we might want to use it.
 The binary step function works well when we want a binary classification, such as in the output layer: does the input belong to a particular category?
@@ -198,8 +212,7 @@ Then, the error is used to determine the magnitude of the change to the weights.
 
 For time series data, normal ANNs are not suitable because they consider only a single input at once.
 Instead, we can use \textit{recurrent neural network} (RNN) setups, which consider the results from previous inputs when evaluating the current input.
-The particular type of RNN this project uses is a long-short term memory network, which utilizes a ``forget gate'' to determine what previous information is relevant.
-% TODO expand here
+In particular, we utilize a long-short term artificial neural network, which stores information about previous input until it determines that information is no longer relevant, at which point it is forgotten.
 
 \section{Genetic Algorithms} \label{bg:ga}
 
